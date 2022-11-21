@@ -1,0 +1,65 @@
+version: "3.1"
+
+nlu:
+- intent: greet1
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hiii
+
+- intent: greet
+  examples: |
+    - hey My id is [12](id)
+    - hello My id is [12](id)
+    - hi My id is [12](id)
+    - hello there My id is [12](id)
+    - good morning My id is [12](id)
+    - good evening My id is [12](id)
+    - moin My id is [12](id)
+    - hey there My id is [12](id)
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - hey [4](id)
+    - My id is [3](id)
+
+
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: answer_no
+  examples: |
+    - no
+    - n
+    - nah
+    - n.
+
+- intent: supply_contact_info
+  examples: |
+    - My name is [John](name). email's [john@email.com](email)
+    - name: [David](name) email: [david@email.com](email)
+    - Yeah sure. I'm [Barbara](name). My email is [barbara@email.com](email)
+    - [Susan](name), [susan@email.com](email)
+    - Sure. It's [Fred](name). My email is [fred@email.com](email).
+    - my name is [vicky](name). email is [vicky@gmail.com](email).
+    - My name is [Bob](name). My email is [bob@gmail.com](email)
+
+#- intent: supply_id
+#    - My id is [12](id)
+#    - id = [333](id)
+#    - [2](id)
+#    - Hi, my id number is [3](id)

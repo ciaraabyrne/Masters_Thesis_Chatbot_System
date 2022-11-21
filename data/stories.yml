@@ -1,0 +1,68 @@
+version: "3.1"
+
+stories:
+- story: new_user
+  steps:
+   - intent: greet1
+   - action: utter_greet1
+   - intent: answer_no
+   - action: utter_answer_no
+   - intent: supply_contact_info
+   - action: person_form
+   - active_loop: person_form
+   - slot_was_set:
+     - requested_slot: name
+   - slot_was_set:
+     - name: ciara
+   - slot_was_set:
+     - requested_slot: email
+   - slot_was_set:
+     - email: ciara@gmail.com
+   - slot_was_set:
+     - requested_slot: null
+   - active_loop: null
+   - action: action_submit
+   - action: utter_acknowledge_provided_info
+
+
+- story: Enters_id
+  steps:
+   - intent: greet1
+   - action: utter_greet1
+   - slot_was_set:
+       - id: true
+   - intent: greet
+   - action: utter_greet
+   - action: action_response
+   - action: utter_goodbye
+
+#- story: interactive_story_1
+#  steps:
+#  - intent: greet
+#  - action: utter_ask_for_contact_info
+#  - intent: supply_contact_info
+#  - action: person_form
+#  - active_loop: person_form
+#  - slot_was_set:
+#    - requested_slot: name
+#  - slot_was_set:
+#    - name: ciara
+#  - slot_was_set:
+#    - requested_slot: email
+#  - slot_was_set:
+#    - email: ciara@gmail.com
+#  - slot_was_set:
+#    - requested_slot: null
+#  - active_loop: null
+#  - action: utter_acknowledge_provided_info
+#  - action: action_submit
+#  - action: utter_goodbye
+
+#- story: interactive_story_2
+#  steps:
+#   - intent: greet1
+#   - action: utter_greet1
+#   - intent: greet
+#   - action: utter_greet
+#   - action: action_response
+#   - action: utter_goodbye

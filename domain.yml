@@ -1,0 +1,72 @@
+version: "3.1"
+
+intents:
+  - greet1
+  - greet
+  - goodbye
+  - affirm
+  - supply_contact_info
+  - supply_id
+  - answer_no
+  
+entities:
+- name
+- email
+- id
+
+slots:
+  name:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: name
+  email:
+     type: text
+     mappings:
+     - type: from_entity
+       entity: email
+  id:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: id
+
+responses:
+  utter_greet1:
+  - text: "Hey! How are you? Have you talked to me before? If yes write your id, if no type 'n'"
+
+  utter_greet:
+  - text: "Great, thanks"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_answer_no:
+  - text: "Could you please provide your first name and email?"
+
+  utter_acknowledge_provided_info:
+  - text: Thanks {name} for providing this email {email}!
+
+  utter_reply_name:
+  - text: Thanks {name} !
+
+  utter_response:
+    - text: Hi {name}!
+
+actions:
+  - action_response
+  - action_submit
+  - utter_acknowledge_provided_info
+
+forms:
+  person_form:
+    required_slots:
+        - name
+        - email
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
