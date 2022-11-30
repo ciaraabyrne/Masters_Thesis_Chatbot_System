@@ -32,6 +32,16 @@ slots:
         entity: id
 
 responses:
+
+#  utter_student_name:
+#    - text: "Hi, my name is Bob I am a Chatbot I am here to help you with SQL. What is your name?"
+#  utter_talked_before:
+#    - text: Hi {name} I remember you from last time. Would you like to ask an SQL Question or try a problem with me
+#  utter_last_benchmark:
+#    - text: I see you last tried a problem using {get_last_problem} . Would you like to try a similar problem or would you like to move on?
+
+#  action to get an sql question?
+
   utter_greet1:
   - text: "Hey! How are you? Have you talked to me before? If yes write your id, if no type 'n'"
 

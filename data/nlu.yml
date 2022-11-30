@@ -47,6 +47,8 @@ nlu:
     - n
     - nah
     - n.
+    - nope
+    - N
 
 - intent: supply_contact_info
   examples: |
@@ -58,8 +60,33 @@ nlu:
     - my name is [vicky](name). email is [vicky@gmail.com](email).
     - My name is [Bob](name). My email is [bob@gmail.com](email)
 
-#- intent: supply_id
-#    - My id is [12](id)
-#    - id = [333](id)
-#    - [2](id)
-#    - Hi, my id number is [3](id)
+
+
+#- intent: student_name
+#  examples: |
+#    - I am [Student 4](name)
+#    - My name is [Student 2](name)
+#    - its [Student 6](name)
+#    - it is [student 3](name)
+#    - It's [Student 6](name)
+#- intent: talked_before
+#  example: |
+#    - ask a [question](q)
+#    - a [question](q) please
+#    - can we try a [problem](p)
+#    - a [problem](p)
+#    - an SQL [exercise](p)
+#    - [question](q)
+#    - [problem](p)
+#
+#
+#- intetn: last_benchmark
+#  example: |
+#    - [move on](next_q)
+#    - try a [similar](same_q) problem
+#    - can we [move](next_q)
+#    - i would like to [progress](next_q)
+#    - can we [conintue](next_q) on
+#    - can we [stay](same_q)
+#    - i want a [similar](same_q) problem
+
