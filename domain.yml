@@ -1,19 +1,29 @@
-version: "3.1"
-
+version: '3.1'
 intents:
-  - greet1
-  - greet
-  - goodbye
-  - affirm
-  - supply_contact_info
-  - supply_id
-  - answer_no
-  
+- affirm
+- answer_no
+- answered
+- goodbye
+- greet
+- greet1
+- move_on
+- move_on_or_repeat
+- nlu_fallback
+- quit_pls
+- similar
+- supply_contact_info
+- supply_id
+- chitchat
 entities:
-- name
 - email
+- name
 - id
-
+- answer
+- exercise
+- new_exercise
+- exercise_id
+- reply
+- level
 slots:
   name:
     type: text
@@ -21,62 +31,106 @@ slots:
     - type: from_entity
       entity: name
   email:
-     type: text
-     mappings:
-     - type: from_entity
-       entity: email
+    type: text
+    mappings:
+    - type: from_entity
+      entity: email
   id:
     type: text
     mappings:
-      - type: from_entity
-        entity: id
-
+    - type: from_entity
+      entity: id
+  exercise:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: exercise
+  new_exercise:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: new_exercise
+  exercise_id:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: exercise_id
+  reply:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: reply
+  answer:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: answer
+  level:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: level
 responses:
-
-#  utter_student_name:
-#    - text: "Hi, my name is Bob I am a Chatbot I am here to help you with SQL. What is your name?"
-#  utter_talked_before:
-#    - text: Hi {name} I remember you from last time. Would you like to ask an SQL Question or try a problem with me
-#  utter_last_benchmark:
-#    - text: I see you last tried a problem using {get_last_problem} . Would you like to try a similar problem or would you like to move on?
-
-#  action to get an sql question?
-
   utter_greet1:
-  - text: "Hey! How are you? Have you talked to me before? If yes write your id, if no type 'n'"
-
+  - text: Hey! How are you? Have you talked to me before? If yes write your id, if no type 'n'
   utter_greet:
-  - text: "Great, thanks"
-
+  - text: Great, thanks
   utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
+  - text: Bye
+  utter_ask_help:
+  - text: Thanks {name} !
   utter_answer_no:
-  - text: "Could you please provide your first name and email?"
-
+  - text: Could you please provide your first name and email?
   utter_acknowledge_provided_info:
   - text: Thanks {name} for providing this email {email}!
-
   utter_reply_name:
   - text: Thanks {name} !
-
   utter_response:
-    - text: Hi {name}!
+  - text: Hi {name}!
+  utter_lastquestion:
+  - text: I see your we last solved a problem similar to {exercise} .
+  utter_wherewego:
+  - text: Do you wish to try another similar to this, move on to a harder exercise or quit?
+  utter_trythis:
+  - text: 'Okay try this: {new_exercise}'
+  utter_acknowledge_goodbye:
+  - text: Goodbye {id}! I hope to see you again soon! (Your level is {level})
+
+  utter_chitchat/ask_SQL:
+    - text: SQL is a standard language which stands for Structured Query Language based on the English language
+  utter_chitchat/ask_RDBMS:
+    - text: RDBMS stands for Relational Database Management System. RDBMS is the basis for SQL.
+  utter_chitchat/ask_SELECT:
+    - text: SELECT - extracts data from a database.
+  utter_chitchat/ask_SELECT_syntax:
+    - text: "SELECT column1, column2  \n FROM table_name;"
+  utter_chitchat/ask_SELECT_DISTINCT:
+    - text: The SELECT DISTINCT statement is used to return only distinct (different) values. Inside a table, a column often contains many duplicate values; and sometimes you only want to list the different (distinct) values.
+  utter_chitchat/ask_SELECT_DISTINCT_syntax:
+    - text: "SELECT DISTINCT column1, column2 \n FROM table_name;"
+  utter_chitchat/ask_SELECT_all:
+    - text: To select all fields in a table you have to use the astric (*) with SELECT, 'SELECT * FROM table_name'. This returns all values in a table.
+
 
 actions:
-  - action_response
-  - action_submit
-  - utter_acknowledge_provided_info
-
+- action_checkanswer
+- action_lastquestion
+- action_newquestion
+- action_quit
+- action_response
+- action_submit
+- utter_acknowledge_provided_info
+- utter_answer_no
+- utter_goodbye
+- utter_greet1
+- utter_lastquestion
+- utter_trythis
+- utter_wherewego
 forms:
   person_form:
     required_slots:
-        - name
-        - email
-
+    - name
+    - email
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

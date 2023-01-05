@@ -2,90 +2,32 @@
 #### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
 
 stories:
-- story: happy path 1
+- story: new_user
   steps:
   - user: |
       hello there!
-    intent: greet
-  - action: utter_greet
+    intent: greet1
+  - action: utter_greet1
   - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
-
-- story: happy path 2
-  steps:
+      n
+    intent: answer_no
+  - action: utter_answer_no
   - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
-  - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
-
-- story: sad path 1
-  steps:
-  - user: |
-      hello
-    intent: greet
-  - action: utter_greet
-  - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      yes
-    intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - user: |
-      hello
-    intent: greet
-  - action: utter_greet
-  - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      not really
-    intent: deny
-  - action: utter_goodbye
-
-- story: sad path 3
-  steps:
-  - user: |
-      hi
-    intent: greet
-  - action: utter_greet
-  - user: |
-      very terrible
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      no
-    intent: deny
-  - action: utter_goodbye
-
-- story: say goodbye
-  steps:
-  - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
-
-- story: bot challenge
-  steps:
-  - user: |
-      are you a bot?
-    intent: bot_challenge
-  - action: utter_iamabot
+      My name is Niall. My email is niall@gmail.com
+    intent: supply_contact_info
+  - action: person_form
+   - active_loop: person_form
+   - slot_was_set:
+     - requested_slot: name
+   - slot_was_set:
+     - name: niall
+   - slot_was_set:
+     - requested_slot: email
+   - slot_was_set:
+     - email: ciara@gmail.com
+   - slot_was_set:
+     - requested_slot: null
+   - active_loop: null
+   - action: action_submit
+   - action: utter_acknowledge_provided_info
+   - action: utter_goodbye

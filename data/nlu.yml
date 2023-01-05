@@ -1,5 +1,4 @@
 version: "3.1"
-
 nlu:
 - intent: greet1
   examples: |
@@ -7,7 +6,6 @@ nlu:
     - hello
     - hi
     - hiii
-
 - intent: greet
   examples: |
     - hey My id is [12](id)
@@ -25,9 +23,9 @@ nlu:
     - good afternoon
     - hey [4](id)
     - My id is [3](id)
-
-
-
+    - [6](id)
+    - [5](id)
+    - [7](id)
 - intent: goodbye
   examples: |
     - cu
@@ -40,7 +38,6 @@ nlu:
     - see you around
     - bye bye
     - see you later
-
 - intent: answer_no
   examples: |
     - no
@@ -49,7 +46,6 @@ nlu:
     - n.
     - nope
     - N
-
 - intent: supply_contact_info
   examples: |
     - My name is [John](name). email's [john@email.com](email)
@@ -59,34 +55,120 @@ nlu:
     - Sure. It's [Fred](name). My email is [fred@email.com](email).
     - my name is [vicky](name). email is [vicky@gmail.com](email).
     - My name is [Bob](name). My email is [bob@gmail.com](email)
+    - My name is [Emily](name). My email is [emily@gmail.com](email)
+    - My name is [Eoin](name). My email is [eoin@gmail.com](email)
+    - My name is [Joe](name). My email is [joe@gmail.com](email).
+    - My name is [Harry](name). My email is [harry@gmail.com](email)
+    - [Harry](name), [harry@gmail.com](email)
+    - name: [donald](name), email: [donald@gmail.com](email)
+- intent: move_on
+  examples: |
+    - move on
+    - next
+    - advance
+- intent: similar
+  examples: |
+    - try a similar problem
+    - the same type
+    - the same
+    - similar
+- intent: answered
+  examples: |
+    - the answer is ["SELECT x FROM y"](answer)
+    - ["SELECT x FROM y"](answer)
+    - ["SELECT * FROM d"](answer)
+    - ["SELECT r FROM d WHERE"](answer)
+    - SELECT * FROM Lecturer
+    - SELECT * FROM Lecturer;
+    - SELECT * FROM Student;
+    - SELECT module_codes FROM Lecturer
+    - SELECT * FROM Student
+    - SELECT DISTINC name FROM Students
+    - SELECT DISTINCT name From Students
+    - SELECT DISTINCT code FROM Module
+    - SELECT DISTINCT name FROM Students
+    - SELECT DISTINCT name FROM Student
+    - SELECT DISTINCT name FROM Studen
+    - SELECT DISTINCT names FROM Students
+    - SELECT name FROM Lecturer WHERE code=b7
+    - SELECT name FROM Lecturer WHERE code=='b7'
+    - SELECT name FROM Lecturer WHERE code='b7
+    - SELECT name FROM Lecturer WHERE codes='b7'
+    - SELECT name FROM Lecturer WHERE code='b7'
+- intent: quit_pls
+  examples: |
+    - quit
+    - end pls
+    - end session
 
+- intent: ask_question
+  examples: |
+    - What is the difference between SQL and MySQL?
+    - What are the different subsets of SQL?
+    - What do you mean by DBMS? What are its different types?
+    - What is RDBMS? How is it different from DBMS?
+    - What is a Self-Join?
+    - What is the SELECT statement?
+    - What are some common clauses used with SELECT query in SQL?
+    - What are UNION, MINUS and INTERSECT commands?
 
+- intent: chitchat/ask_SQL
+  examples: |
+    - What does SQL stand for?
+    - what does SQL mean?
 
-#- intent: student_name
-#  examples: |
-#    - I am [Student 4](name)
-#    - My name is [Student 2](name)
-#    - its [Student 6](name)
-#    - it is [student 3](name)
-#    - It's [Student 6](name)
-#- intent: talked_before
-#  example: |
-#    - ask a [question](q)
-#    - a [question](q) please
-#    - can we try a [problem](p)
-#    - a [problem](p)
-#    - an SQL [exercise](p)
-#    - [question](q)
-#    - [problem](p)
-#
-#
-#- intetn: last_benchmark
-#  example: |
-#    - [move on](next_q)
-#    - try a [similar](same_q) problem
-#    - can we [move](next_q)
-#    - i would like to [progress](next_q)
-#    - can we [conintue](next_q) on
-#    - can we [stay](same_q)
-#    - i want a [similar](same_q) problem
+- intent: chitchat/ask_RDBMS
+  examples: |
+    - What is RDMS?
+    - what does RDMS mean
+    - How is RDMS related to SQL?
 
+- intent: chitchat/ask_SELECT
+  examples: |
+    - what does a select statement do?
+    - what does SELECT do?
+    - what does a SELECT statement do?
+    - how do I extract data from a database?
+
+- intent: chitchat/ask_SELECT_syntax
+  examples: |
+    - how do I write a select statement?
+    - how do I write a SELECT statement?
+    - how to I write select?
+    - what is the syntax for SELECT?
+    - what is the syntax for select?
+
+- intent: chitchat/ask_SELECT_DISTINCT
+  examples: |
+    - how do I SELECT only different values?
+    - how do I avoid returning duplicate values?
+    - what statement selects distinct values?
+    - why is there duplicate returned values in my SELECT statement?
+    - I dont want duplicated values
+
+- intent: chitchat/ask_SELECT_DISTINCT_syntax
+  examples: |
+    - what is the syntax to return distinct values?
+    - how do I write a select distinct statement?
+    - how do I write a SELECT DISTINCT statement?
+    - how to I write select distinct?
+    - what is the syntax for SELECT DISTINCT?
+    - what is the syntax for select DISTINCT?
+
+- intent: chitchat/ask_SELECT_all
+  examples: |
+    - how do I SELECT all fields in a table?
+    - how do I select all fields in a table?
+    - how do I select all columns in a table?
+    - how do I get all columns in a table?
+    - what if I want get get all values in a table?
+    - I want all values in a table.
+    - What does * mean in SQL?
+    - what does * do?
+    - what is the syntax to return all fields in a table?
+    - what statement gets all fields in a table?
+    - How do I write select all in SQL?
+    - how do I get all columns in a table?
+    - what if I want get get all values in a table?
+    - I want all values in a table.
+    - how do i write a select all statement?

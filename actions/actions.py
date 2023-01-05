@@ -28,17 +28,44 @@ from rasa_sdk.executor import CollectingDispatcher
 #
 #         return []
 
-from database_con import DataUpdate, dataQuery, dataGetId
+from database_con import DataUpdate, dataQuery, dataGetId, dataGetPrevQ, dataGetNewQ, dataCheckAnswer, dataUpdateOnQuit
 
 
-# class ActionName(Action):
-#     def name(self) -> Text:
-#         """Unique identifier of the form"""
-#         return "action_name"
-#
-#     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#         dispatcher.utter_message(template="supply_contact_info")
-#         return [SlotSet('name', tracker.latest_message['text'])]
+class ActionCheckAnswer(Action):
+    def name(self):
+        return "action_checkanswer"  # Be careful, did you mean action_fetch_data?
+
+    def run(self, dispatcher, tracker, domain):
+        message = tracker.latest_message.get('text')
+
+        new_q = dataCheckAnswer(message, tracker.get_slot("exercise_id"), dispatcher, tracker.get_slot("id"))
+        # dispatcher.utter_message(message)
+        return [SlotSet("reply", new_q)]
+
+
+class ActionNewQuestion(Action):
+    def name(self):
+        return "action_newquestion"  # Be careful, did you mean action_fetch_data?
+
+    def run(self, dispatcher, tracker, domain):
+        x = tracker.latest_message['intent'].get('name')
+        # dispatcher.utter_message(x)
+
+        new_q, qid, level = dataGetNewQ(x, tracker.get_slot("id"), dispatcher, tracker.get_slot("level"),
+                                        tracker.get_slot("exercise_id"))
+        # dispatcher.utter_message(qid)
+        return [SlotSet("new_exercise", new_q), SlotSet("exercise_id", qid), SlotSet("level", level)]
+
+
+class ActionLastQuestion(Action):
+    def name(self):
+        return "action_lastquestion"  # Be careful, did you mean action_fetch_data?
+
+    def run(self, dispatcher, tracker, domain):
+        x, level = dataGetPrevQ(tracker.get_slot("id"), dispatcher)
+        # dispatcher.utter_message(response="utter_response")
+        return [SlotSet("exercise", x), SlotSet("level", level)]
+
 
 class ActionResponse(Action):
     def name(self):
@@ -60,7 +87,18 @@ class ActionSubmit(Action):
                    tracker.get_slot("email"), dispatcher)
         dataGetId(tracker.get_slot("name"),
                   tracker.get_slot("email"), dispatcher)
-        # dispatcher.utter_message("Thanks for the valuable information. ")
+        dispatcher.utter_message("Thanks for the valuable information. ")
+        return []
+
+
+class ActionQuit(Action):
+    def name(self) -> Text:
+        """Unique identifier of the form"""
+        return "action_quit"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        dataUpdateOnQuit(tracker.get_slot("id"),
+                         tracker.get_slot("level"), dispatcher)
         return []
 
 
