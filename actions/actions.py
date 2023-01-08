@@ -28,8 +28,18 @@ from rasa_sdk.executor import CollectingDispatcher
 #
 #         return []
 
-from database_con import DataUpdate, dataQuery, dataGetId, dataGetPrevQ, dataGetNewQ, dataCheckAnswer, dataUpdateOnQuit
+from database_con import dataGeneralQuestion,DataUpdate, dataQuery, dataGetId, dataGetPrevQ, dataGetNewQ, dataCheckAnswer, dataUpdateOnQuit
 
+class ActionGeneralQuestion(Action):
+    def name(self):
+        return "action_general_help"  # Be careful, did you mean action_fetch_data?
+
+    def run(self, dispatcher, tracker, domain):
+        message = tracker.latest_message.get('text')
+
+        new_q = dataGeneralQuestion(message, tracker.get_slot("level"), dispatcher)
+        # dispatcher.utter_message(message)
+        return [SlotSet("reply", new_q)]
 
 class ActionCheckAnswer(Action):
     def name(self):

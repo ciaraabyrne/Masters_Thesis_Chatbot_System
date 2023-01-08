@@ -26,6 +26,9 @@ nlu:
     - [6](id)
     - [5](id)
     - [7](id)
+    - [3](id)
+    - [1](id)
+    - [1](id)
 - intent: goodbye
   examples: |
     - cu
@@ -46,6 +49,7 @@ nlu:
     - n.
     - nope
     - N
+    - \stop
 - intent: supply_contact_info
   examples: |
     - My name is [John](name). email's [john@email.com](email)
@@ -66,12 +70,18 @@ nlu:
     - move on
     - next
     - advance
+    - harder
+    - a harder exercise
+    - next question please
+    - next question
 - intent: similar
   examples: |
     - try a similar problem
     - the same type
     - the same
     - similar
+    - similar to this
+    - similar question
 - intent: answered
   examples: |
     - the answer is ["SELECT x FROM y"](answer)
@@ -95,41 +105,52 @@ nlu:
     - SELECT name FROM Lecturer WHERE code='b7
     - SELECT name FROM Lecturer WHERE codes='b7'
     - SELECT name FROM Lecturer WHERE code='b7'
+    - SELECT modules FROM Lecturer
+    - SELECT Code FROM Lecturer
+    - select Module_codes FROM Lecturer
+    - select module_codes FROM Lecturer
+    - SELECT * LEcturer
+    - SELECT all FROM student
+    - select * FROM student
+    - SELECT DISTINCT c1 FROM table
+    - SELECT DISTINCT names from Student
+    - SELECT DISTINCT values FRO module
+    - SELECT DISTINCT codes FROM modes
+    - select DISTINCT codes FROM Module
+    - SELECT DISTINCT codes FROM Module
+    - SELECT codes from lecturer
+    - select codes from lecturer
+    - SELECT code from Lecturer
+    - SELECT * FROM LEcturer
+    - SELECT DISTINCT FROM Student
+    - SELECT DISTINCT names FROM Student
+    - SELECT nam from modules
+    - select names from modules
+    - SELECT name FROM Module
+    - SELECT * from student
+    - SELECT different FROM Student
+    - SELECT DISTINCT cod from module
 - intent: quit_pls
   examples: |
     - quit
     - end pls
     - end session
 
-- intent: ask_question
-  examples: |
-    - What is the difference between SQL and MySQL?
-    - What are the different subsets of SQL?
-    - What do you mean by DBMS? What are its different types?
-    - What is RDBMS? How is it different from DBMS?
-    - What is a Self-Join?
-    - What is the SELECT statement?
-    - What are some common clauses used with SELECT query in SQL?
-    - What are UNION, MINUS and INTERSECT commands?
-
 - intent: chitchat/ask_SQL
   examples: |
     - What does SQL stand for?
     - what does SQL mean?
-
 - intent: chitchat/ask_RDBMS
   examples: |
     - What is RDMS?
     - what does RDMS mean
     - How is RDMS related to SQL?
-
 - intent: chitchat/ask_SELECT
   examples: |
     - what does a select statement do?
     - what does SELECT do?
     - what does a SELECT statement do?
     - how do I extract data from a database?
-
 - intent: chitchat/ask_SELECT_syntax
   examples: |
     - how do I write a select statement?
@@ -137,7 +158,6 @@ nlu:
     - how to I write select?
     - what is the syntax for SELECT?
     - what is the syntax for select?
-
 - intent: chitchat/ask_SELECT_DISTINCT
   examples: |
     - how do I SELECT only different values?
@@ -145,7 +165,6 @@ nlu:
     - what statement selects distinct values?
     - why is there duplicate returned values in my SELECT statement?
     - I dont want duplicated values
-
 - intent: chitchat/ask_SELECT_DISTINCT_syntax
   examples: |
     - what is the syntax to return distinct values?
@@ -154,7 +173,6 @@ nlu:
     - how to I write select distinct?
     - what is the syntax for SELECT DISTINCT?
     - what is the syntax for select DISTINCT?
-
 - intent: chitchat/ask_SELECT_all
   examples: |
     - how do I SELECT all fields in a table?
@@ -168,7 +186,36 @@ nlu:
     - what is the syntax to return all fields in a table?
     - what statement gets all fields in a table?
     - How do I write select all in SQL?
-    - how do I get all columns in a table?
-    - what if I want get get all values in a table?
-    - I want all values in a table.
     - how do i write a select all statement?
+- intent: general_help
+  examples: |
+    - how do I start?
+    - can I have a hint?
+    - I'm stuck
+    - can you help?
+    - can I have help?
+    - how do I start this?
+    - what is the syntax for this?
+    - Im stuck
+    - im stuck
+    - i need help
+    - I don't understand what to do.
+- intent: general_help_reply_syntax
+  examples: |
+    - syntax.
+    - Syntax.
+    - I need help with Syntax
+    - The syntax.
+    - I don't know how to write the code.
+    - theory.
+    - Theory.
+    - I need help with theory
+    - The theory.
+    - theory
+    - what is the theory behind this?
+    - what is the syntax again?
+    - what is the syntax
+    - whats the theory
+    - syntax
+    - what is the syntax?
+

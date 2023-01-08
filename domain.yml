@@ -1,23 +1,23 @@
 version: '3.1'
 intents:
-- affirm
 - answer_no
 - answered
+- chitchat
+- general_help
+- general_help_reply_syntax
 - goodbye
 - greet
 - greet1
 - move_on
-- move_on_or_repeat
 - nlu_fallback
 - quit_pls
 - similar
 - supply_contact_info
-- supply_id
-- chitchat
+
 entities:
+- id
 - email
 - name
-- id
 - answer
 - exercise
 - new_exercise
@@ -56,7 +56,11 @@ slots:
     - type: from_entity
       entity: exercise_id
   reply:
-    type: text
+    type: categorical
+    influence_conversation: true
+    values:
+    - Correct
+    - Incorrect
     mappings:
     - type: from_entity
       entity: reply
@@ -75,45 +79,66 @@ responses:
   - text: Hey! How are you? Have you talked to me before? If yes write your id, if no type 'n'
   utter_greet:
   - text: Great, thanks
-  utter_goodbye:
-  - text: Bye
-  utter_ask_help:
-  - text: Thanks {name} !
   utter_answer_no:
   - text: Could you please provide your first name and email?
   utter_acknowledge_provided_info:
   - text: Thanks {name} for providing this email {email}!
-  utter_reply_name:
-  - text: Thanks {name} !
   utter_response:
   - text: Hi {name}!
   utter_lastquestion:
-  - text: I see your we last solved a problem similar to {exercise} .
+  - text: I see your we last solved a problem similar to {exercise}.
   utter_wherewego:
   - text: Do you wish to try another similar to this, move on to a harder exercise or quit?
+  - text: Wanna try another one of these or move on?
+  - text: Are you ready to advance to a harder SQL question or do you want a similar one?
+  - text: Are you feeling ready to move on or should we try another one of these?
   utter_trythis:
-  - text: 'Okay try this: {new_exercise}'
+  - text: |-
+      Okay try this:
+      {new_exercise}
+      I will be here if you have any questions, type them :)
+  - text: |-
+      Give this a go:
+      {new_exercise}
+      Type questions as you have them and I will help :)
+  - text: |-
+      Lets give this one a shot:
+      {new_exercise}
+      If you're stuck let me know.
+  - text: |-
+      Try this exercise:
+      {new_exercise}
+      Any questions let me know!
+  utter_general_help:
+  - text: Hmm, do you need help with theory or syntax?
+  - text: I can help with theory or syntax if that helps?
   utter_acknowledge_goodbye:
   - text: Goodbye {id}! I hope to see you again soon! (Your level is {level})
-
   utter_chitchat/ask_SQL:
-    - text: SQL is a standard language which stands for Structured Query Language based on the English language
+  - text: SQL is a standard language which stands for Structured Query Language based on the English language
   utter_chitchat/ask_RDBMS:
-    - text: RDBMS stands for Relational Database Management System. RDBMS is the basis for SQL.
+  - text: RDBMS stands for Relational Database Management System. RDBMS is the basis for SQL.
   utter_chitchat/ask_SELECT:
-    - text: SELECT - extracts data from a database.
+  - text: SELECT - extracts data from a database.
   utter_chitchat/ask_SELECT_syntax:
-    - text: "SELECT column1, column2  \n FROM table_name;"
+  - text: |-
+      SELECT column1, column2  
+       FROM table_name;
   utter_chitchat/ask_SELECT_DISTINCT:
-    - text: The SELECT DISTINCT statement is used to return only distinct (different) values. Inside a table, a column often contains many duplicate values; and sometimes you only want to list the different (distinct) values.
+  - text: |-
+      The SELECT DISTINCT statement is used to return only distinct (different) values.
+      Inside a table, a column often contains many duplicate values and sometimes you only want to list the different (distinct) values.
   utter_chitchat/ask_SELECT_DISTINCT_syntax:
-    - text: "SELECT DISTINCT column1, column2 \n FROM table_name;"
+  - text: |-
+      SELECT DISTINCT column1, column2 
+       FROM table_name;
   utter_chitchat/ask_SELECT_all:
-    - text: To select all fields in a table you have to use the astric (*) with SELECT, 'SELECT * FROM table_name'. This returns all values in a table.
-
-
+  - text: |-
+      To select all fields in a table you have to use the astric (*) with SELECT, 'SELECT * FROM table_name'.
+       This returns all values in a table.
 actions:
 - action_checkanswer
+- action_general_help
 - action_lastquestion
 - action_newquestion
 - action_quit
@@ -121,7 +146,7 @@ actions:
 - action_submit
 - utter_acknowledge_provided_info
 - utter_answer_no
-- utter_goodbye
+- utter_general_help
 - utter_greet1
 - utter_lastquestion
 - utter_trythis

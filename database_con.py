@@ -97,7 +97,7 @@ def dataGetNewQ(name, id, dispatcher, level_sql, exercise_id):
 
     if name == 'similar':
         sql2 = "SELECT question,Question_id FROM SQL_level WHERE level='%s' AND Question_id !='%s'" % (
-        level_sql, exercise_id)
+            level_sql, exercise_id)
         try:
             # Execute the SQL Query
             mycursor.execute(sql2)
@@ -164,7 +164,7 @@ def dataCheckAnswer(answer, exercise_id, dispatcher, id):
 
             else:
                 # reply = "Hard luck " + name1 + ". Try again!"
-                dispatcher.utter_message(f"Hard luck . Try again!")
+                dispatcher.utter_message(f"Hard luck. Try again!")
                 reply2 = "Incorrect"
                 return reply2
 
@@ -181,3 +181,29 @@ def dataUpdateOnQuit(id, level, dispatcher):
     mycursor.execute(sql)
     mydb.commit()
     dispatcher.utter_message(f" Bye {id}! I hope to see you again soon")
+
+
+def dataGeneralQuestion(message, level, dispatcher):
+    msg = message.lower()
+    if 'syntax' in msg:
+        if level == 1:
+            dispatcher.utter_message(
+                f" Remember you learned about the SELECT statement? \n Try this syntax in your exercise: \n SELECT column1, column2  \n FROM table_name;")
+        if level == 2:
+            dispatcher.utter_message(
+                f" Remember you learned about the SELECT statement? \n Try this syntax in your exercise: \n SELECT * FROM table_name;")
+        if level == 3:
+            dispatcher.utter_message(
+                f" Remember you learned about the SELECT DISTINCT statement? \n Try this syntax in your exercise: \n SELECT DISTINCT column1, column2 \n FROM table_name;")
+
+    if 'theory' in msg:
+        if level == 1:
+            dispatcher.utter_message(
+                f" Remember you learned about the SELECT statement?  \n SELECT - extracts data from a database.")
+        if level == 2:
+            dispatcher.utter_message(
+                f" Remember you learned about the SELECT * statement?  \n SELECT * - returns all values in a table.")
+        if level == 3:
+            dispatcher.utter_message(
+                f" Remember you learned about the SELECT DISTINCT statement? \n The SELECT DISTINCT statement is used to return only distinct (different) values. \n Inside a table, a column often contains many duplicate values and sometimes you only want to list the different (distinct) values.")
+

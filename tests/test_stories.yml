@@ -2,32 +2,107 @@
 #### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
 
 stories:
-- story: new_user
+- story: A basic story test
   steps:
   - user: |
-      hello there!
+      hello
     intent: greet1
   - action: utter_greet1
   - user: |
-      n
-    intent: answer_no
-  - action: utter_answer_no
+     Yes [6]{"entity": "id"}
+    intent: greet
+  - action: action_response
+  - action: action_lastquestion
+  - slot_was_set:
+      - exercise: "SELECT DISTINCT column1, column2, ... FROM table_name;\r"
+  - slot_was_set:
+      - level: "3"
+  - action: utter_lastquestion
+  - action: utter_wherewego
   - user: |
-      My name is Niall. My email is niall@gmail.com
-    intent: supply_contact_info
-  - action: person_form
-   - active_loop: person_form
-   - slot_was_set:
-     - requested_slot: name
-   - slot_was_set:
-     - name: niall
-   - slot_was_set:
-     - requested_slot: email
-   - slot_was_set:
-     - email: ciara@gmail.com
-   - slot_was_set:
-     - requested_slot: null
-   - active_loop: null
-   - action: action_submit
-   - action: utter_acknowledge_provided_info
-   - action: utter_goodbye
+      try a similar question.
+    intent: similar
+  - action: action_newquestion
+  - slot_was_set:
+      - new_exercise: Select distinct (different) name values from the Student table.
+  - slot_was_set:
+      - exercise_id: q5
+  - slot_was_set:
+      - level: 3
+  - action: utter_trythis
+  - user: |
+      SELECT DISTINCT name from Students
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+      - reply: Incorrect
+  - action: action_listen
+  - user: |
+      select DISTINCT name from Students
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+      - reply: Incorrect
+  - action: action_listen
+  - user: |
+      SELECT DISTINCT name FROM Students
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+      - reply: Correct
+  - action: utter_wherewego
+  - action: action_listen
+  - user: |
+      can we move on?
+    intent: move_on
+  - action: action_newquestion
+  - slot_was_set:
+      - new_exercise: Return names of lecturers that teach the module code b7.
+  - slot_was_set:
+      - exercise_id: q7
+  - slot_was_set:
+      - level: 4
+  - action: utter_trythis
+  - action: action_listen
+  - user: |
+      SELECT code='b7' FROM Lecturer
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+      - reply: Incorrect
+  - action: action_listen
+  - user: |
+      SELECT name FROM Lecturer WHERE code= b7
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+      - reply: Incorrect
+  - action: action_listen
+  - user: |
+      SELECT name FROM Lecturer WHERE code='b7'
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+      - reply: correct
+  - action: utter_wherewego
+
+
+#  - action: utter_ask_location
+#  - user: |
+#      in [Paris]{"entity": "location"}
+#    intent: inform
+#  - action: utter_ask_price
+#
+#- story: A test where a custom action returns events
+#  steps:
+#  - user: |
+#      hey
+#    intent: greet
+#  - action: my_custom_action
+#  - slot_was_set:
+#    - my_slot: "value added by custom action"
+#  - action: utter_ask_age
+#  - user: |
+#      thanks
+#    intent: thankyou
+#  - action: utter_no_worries
