@@ -2,13 +2,13 @@ version: "3.1"
 
 rules:
 
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
-
+#- rule: Say goodbye anytime the user says goodbye
+#  steps:
+#  - intent: goodbye
+#  - action: utter_goodbye
 
 - rule: Say hi anytime the user says hi
+  conversation_start: true  # this rule only applies at the beginning of a conversation
   steps:
    - intent: greet1
    - action: utter_greet1

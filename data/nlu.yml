@@ -28,7 +28,8 @@ nlu:
     - [7](id)
     - [3](id)
     - [1](id)
-    - [1](id)
+    - [10](id)
+    - [13](id)
 - intent: goodbye
   examples: |
     - cu
@@ -65,6 +66,7 @@ nlu:
     - My name is [Harry](name). My email is [harry@gmail.com](email)
     - [Harry](name), [harry@gmail.com](email)
     - name: [donald](name), email: [donald@gmail.com](email)
+    - My name is [Joey](name) and email [joey@gmail.com](email)
 - intent: move_on
   examples: |
     - move on
@@ -82,6 +84,8 @@ nlu:
     - similar
     - similar to this
     - similar question
+    - similar question please
+    - try a similar question
 - intent: answered
   examples: |
     - the answer is ["SELECT x FROM y"](answer)
@@ -130,12 +134,20 @@ nlu:
     - SELECT * from student
     - SELECT different FROM Student
     - SELECT DISTINCT cod from module
+    - SELECT module_code FROM Lecturer
+    - SELECT ALL from Lecturer
+    - SELECT mods FROM Lecturer
+    - SELECT names FROM Module
+    - SELECT ALL FROM Module
+    - SELECT * FROM module
+    - SELECT * FROM Module
+    - SELECT * FROM lecturers
+    - SELECT * FROM Student_Module
 - intent: quit_pls
   examples: |
     - quit
     - end pls
     - end session
-
 - intent: chitchat/ask_SQL
   examples: |
     - What does SQL stand for?
@@ -187,6 +199,31 @@ nlu:
     - what statement gets all fields in a table?
     - How do I write select all in SQL?
     - how do i write a select all statement?
+- intent: chitchat/ask_WHERE
+  examples: |
+    - how do I SELECT fields in a table when theres a condition?
+    - how do I select certain fields in a table based on column value?
+    - how do I use a WHERE clause?
+    - What does WHERE with SELECT do?
+    - How do I incorperate conditions in statements?
+    - What does a condition mean in SQL.
+    - How do I filter records in a table?
+    - How are columns filtered
+    - How do i filter values in columns
+- intent: chitchat/ask_WHERE_syntax
+  examples: |
+    - what is the syntax I SELECT fields in a table when theres a condition?
+    - what statement can SELECT fields in a table when theres a condition?
+    - What is the syntax to select certain fields in a table based on column value?
+    - how do I write a WHERE clause?
+    - What is WHERE with SELECT syntax?
+    - How do I incorperate conditions in statements?
+    - What does a condition mean in SQL.
+    - what is the syntax to filter records in a table?
+    - What statement can filter records in a table
+    - what is the syntax to filter values in columns
+
+
 - intent: general_help
   examples: |
     - how do I start?
@@ -218,4 +255,28 @@ nlu:
     - whats the theory
     - syntax
     - what is the syntax?
+    - what syntax do i use?
 
+- intent: show_solution
+  examples: |
+    - can I see the solution?
+    - can I see the answer?
+    - what is the answer?
+    - what is the solution?
+    - give me the anwer please
+    - give me the solution please
+    - solution please
+    - answer please
+    - answer
+    - solution
+
+- intent: skip_question
+  examples: |
+    - can I skip this question?
+    - can I skip this exercise?
+    - can we move to the next question?
+    - skip this
+    - skip please
+    - skip
+    - new question please
+    - I would like to try a new question

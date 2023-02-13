@@ -36,22 +36,22 @@ stories:
 #   - action: action_response
 #   - action: utter_goodbye
 
-- story: interactive_story_1
-  steps:
-  - intent: greet1
-  - action: utter_greet1
-  - intent: answer_no
-  - action: utter_answer_no
-  - intent: supply_contact_info
-    entities:
-    - name: Joe
-    - email: joe@gmail.com
-  - slot_was_set:
-    - name: Joe
-  - slot_was_set:
-    - email: joe@gmail.com
-  - action: action_submit
-  - action: utter_acknowledge_provided_info
+#- story: interactive_story_1
+#  steps:
+#  - intent: greet1
+#  - action: utter_greet1
+#  - intent: answer_no
+#  - action: utter_answer_no
+#  - intent: supply_contact_info
+#    entities:
+#    - name: Joe
+#    - email: joe@gmail.com
+#  - slot_was_set:
+#    - name: Joe
+#  - slot_was_set:
+#    - email: joe@gmail.com
+#  - action: action_submit
+#  - action: utter_acknowledge_provided_info
 
 #
 #- story: interactive_story_1
@@ -666,140 +666,348 @@ stories:
   - intent: quit_pls
   - action: action_quit
 
-- story: interactive_story_1
-  steps:
-  - intent: greet1
-  - action: utter_greet1
-  - intent: greet
-    entities:
-    - id: '1'
-  - slot_was_set:
-    - id: '1'
-  - action: action_response
-  - action: action_lastquestion
-  - slot_was_set:
-    - exercise:
-      - "SELECT col_name FROM Table_name\r"
-  - slot_was_set:
-    - level: 1
-  - action: utter_lastquestion
-  - action: utter_wherewego
-  - intent: similar
-  - action: action_newquestion
-  - slot_was_set:
-    - new_exercise: Find the SQL statement that returns the module codes associated with a Lecturer
-  - slot_was_set:
-    - exercise_id: q1
-  - slot_was_set:
-    - level: 1
-  - action: utter_trythis
-  - intent: general_help
-  - action: utter_general_help
-  - intent: general_help_reply_syntax
-  - action: action_general_help
-  - slot_was_set:
-    - reply: null
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: general_help
-  - action: utter_general_help
-  - intent: general_help_reply_syntax
-  - action: action_general_help
-  - slot_was_set:
-    - reply: null
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Correct
-  - action: utter_wherewego
-  - intent: move_on
-  - action: action_newquestion
-  - slot_was_set:
-    - new_exercise: Select all values from the Lecturer table
-  - slot_was_set:
-    - exercise_id: q3
-  - slot_was_set:
-    - level: 2
-  - action: utter_trythis
-  - intent: general_help
-  - action: utter_general_help
-  - intent: general_help_reply_syntax
-  - action: action_general_help
-  - slot_was_set:
-    - reply: null
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Correct
-  - action: utter_wherewego
-  - intent: move_on
-  - action: action_newquestion
-  - slot_was_set:
-    - new_exercise: Select distinct (different) name values from the Student table.
-  - slot_was_set:
-    - exercise_id: q5
-  - slot_was_set:
-    - level: 3
-  - action: utter_trythis
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Correct
-  - action: utter_wherewego
-  - intent: move_on
-  - action: action_newquestion
-  - slot_was_set:
-    - new_exercise: "Return names of lecturers that teach the module code b7.\n"
-  - slot_was_set:
-    - exercise_id: q7
-  - slot_was_set:
-    - level: 4
-  - action: utter_trythis
-  - intent: answer_no
+#- story: interactive_story_1
+#  steps:
+#  - intent: greet1
+#  - action: utter_greet1
+#  - intent: greet
+#    entities:
+#    - id: '1'
+#  - slot_was_set:
+#    - id: '1'
+#  - action: action_response
+#  - action: action_lastquestion
+#  - slot_was_set:
+#    - exercise:
+#      - "SELECT col_name FROM Table_name\r"
+#  - slot_was_set:
+#    - level: 1
+#  - action: utter_lastquestion
+#  - action: utter_wherewego
+#  - intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Find the SQL statement that returns the module codes associated with a Lecturer
+#  - slot_was_set:
+#    - exercise_id: q1
+#  - slot_was_set:
+#    - level: 1
+#  - action: utter_trythis
+#  - intent: general_help
+#  - action: utter_general_help
+#  - intent: general_help_reply_syntax
+#  - action: action_general_help
+#  - slot_was_set:
+#    - reply: null
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: general_help
+#  - action: utter_general_help
+#  - intent: general_help_reply_syntax
+#  - action: action_general_help
+#  - slot_was_set:
+#    - reply: null
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - action: utter_wherewego
+#  - intent: move_on
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Select all values from the Lecturer table
+#  - slot_was_set:
+#    - exercise_id: q3
+#  - slot_was_set:
+#    - level: 2
+#  - action: utter_trythis
+#  - intent: general_help
+#  - action: utter_general_help
+#  - intent: general_help_reply_syntax
+#  - action: action_general_help
+#  - slot_was_set:
+#    - reply: null
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - action: utter_wherewego
+#  - intent: move_on
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Select distinct (different) name values from the Student table.
+#  - slot_was_set:
+#    - exercise_id: q5
+#  - slot_was_set:
+#    - level: 3
+#  - action: utter_trythis
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - action: utter_wherewego
+#  - intent: move_on
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: "Return names of lecturers that teach the module code b7.\n"
+#  - slot_was_set:
+#    - exercise_id: q7
+#  - slot_was_set:
+#    - level: 4
+#  - action: utter_trythis
+#  - intent: answer_no
+
+#- story: interactive_story_1
+#  steps:
+#  - intent: greet1
+#  - action: utter_greet1
+#  - intent: greet
+#    entities:
+#    - id: '1'
+#  - slot_was_set:
+#    - id: '1'
+#  - action: action_response
+#  - action: action_lastquestion
+#  - slot_was_set:
+#    - exercise:
+#      - "SELECT col_name FROM Table_name\r"
+#  - slot_was_set:
+#    - level: 1
+#  - action: utter_lastquestion
+#  - action: utter_wherewego
+#  - intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Find the SQL statement that returns the module codes associated with a Lecturer
+#  - slot_was_set:
+#    - exercise_id: q1
+#  - slot_was_set:
+#    - level: 1
+#  - action: utter_trythis
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - action: utter_wherewego
+#  - intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: give the SQL statement that returns the values in the names of Modules
+#  - slot_was_set:
+#    - exercise_id: q2
+#  - slot_was_set:
+#    - level: 1
+#  - action: utter_trythis
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - action: utter_wherewego
+#  - intent: move_on
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Select all values from the Lecturer table
+#  - slot_was_set:
+#    - exercise_id: q3
+#  - slot_was_set:
+#    - level: 2
+#  - action: utter_trythis
+#  - intent: general_help
+#  - action: utter_general_help
+#  - intent: general_help_reply_syntax
+#  - action: action_general_help
+#  - slot_was_set:
+#    - reply: null
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - action: utter_wherewego
+#  - intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: find the SQL statement that returns all values in the Student table
+#  - slot_was_set:
+#    - exercise_id: q4
+#  - slot_was_set:
+#    - level: 2
+#  - action: utter_trythis
+#  - intent: general_help
+#  - action: utter_general_help
+#  - intent: general_help_reply_syntax
+#  - action: action_general_help
+#  - slot_was_set:
+#    - reply: null
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - action: utter_wherewego
+#  - intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Select all values from the Lecturer table
+#  - slot_was_set:
+#    - exercise_id: q3
+#  - slot_was_set:
+#    - level: 2
+#  - action: utter_trythis
+#  - intent: general_help
+#  - action: utter_general_help
+#  - intent: general_help_reply_syntax
+#  - action: action_general_help
+#  - slot_was_set:
+#    - reply: null
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - action: utter_wherewego
+#  - intent: move_on
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Select distinct (different) name values from the Student table.
+#  - slot_was_set:
+#    - exercise_id: q5
+#  - slot_was_set:
+#    - level: 3
+#  - action: utter_trythis
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: general_help_reply_syntax
+#  - action: action_general_help
+#  - slot_was_set:
+#    - reply: null
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - action: utter_wherewego
+#  - intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Return distinct values from the code column in Module.
+#  - slot_was_set:
+#    - exercise_id: q6
+#  - slot_was_set:
+#    - level: 3
+#  - action: utter_trythis
+#  - intent: general_help
+#  - action: utter_general_help
+#  - intent: general_help_reply_syntax
+#  - action: action_general_help
+#  - slot_was_set:
+#    - reply: null
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - intent: general_help_reply_syntax
+#  - action: action_general_help
+#  - slot_was_set:
+#    - reply: null
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - action: utter_wherewego
+#  - intent: move_on
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: "Return names of lecturers that teach the module code b7.\n"
+#  - slot_was_set:
+#    - exercise_id: q7
+#  - slot_was_set:
+#    - level: 4
+#  - action: utter_trythis
+#  - intent: quit_pls
+#  - action: action_quit
 
 - story: interactive_story_1
   steps:
   - intent: greet1
   - action: utter_greet1
-  - intent: greet
+  - intent: answer_no
+  - action: utter_answer_no
+  - intent: supply_contact_info
     entities:
-    - id: '1'
+    - name: Joey
+    - email: joey@gmail.com
   - slot_was_set:
-    - id: '1'
-  - action: action_response
+    - name: Joey
+  - slot_was_set:
+    - email: joey@gmail.com
+  - action: person_form
+  - active_loop: person_form
+  - slot_was_set:
+    - name: Joey
+  - slot_was_set:
+    - email: joey@gmail.com
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+  - slot_was_set:
+    - id: 18
+  - slot_was_set:
+    - new_exercise: give the SQL statement that returns the values in the names of Modules
+  - slot_was_set:
+    - exercise_id: q2
   - action: action_lastquestion
   - slot_was_set:
     - exercise:
       - "SELECT col_name FROM Table_name\r"
   - slot_was_set:
     - level: 1
-  - action: utter_lastquestion
+  - action: utter_trythis
+  - intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Correct
   - action: utter_wherewego
   - intent: similar
   - action: action_newquestion
@@ -815,28 +1023,6 @@ stories:
   - slot_was_set:
     - reply: Correct
   - action: utter_wherewego
-  - intent: similar
-  - action: action_newquestion
-  - slot_was_set:
-    - new_exercise: give the SQL statement that returns the values in the names of Modules
-  - slot_was_set:
-    - exercise_id: q2
-  - slot_was_set:
-    - level: 1
-  - action: utter_trythis
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Correct
-  - action: utter_wherewego
   - intent: move_on
   - action: action_newquestion
   - slot_was_set:
@@ -846,8 +1032,10 @@ stories:
   - slot_was_set:
     - level: 2
   - action: utter_trythis
-  - intent: general_help
-  - action: utter_general_help
+  - intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Incorrect
   - intent: general_help_reply_syntax
   - action: action_general_help
   - slot_was_set:
@@ -866,32 +1054,216 @@ stories:
   - slot_was_set:
     - level: 2
   - action: utter_trythis
-  - intent: general_help
-  - action: utter_general_help
-  - intent: general_help_reply_syntax
-  - action: action_general_help
-  - slot_was_set:
-    - reply: null
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
   - intent: answered
   - action: action_checkanswer
   - slot_was_set:
     - reply: Correct
   - action: utter_wherewego
+  - intent: quit_pls
+  - action: action_quit
+
+#- story: interactive_story_1
+#  steps:
+#  - intent: greet1
+#  - action: utter_greet1
+#  - intent: greet
+#    entities:
+#    - id: '10'
+#  - slot_was_set:
+#    - id: '10'
+#  - action: action_response
+#  - slot_was_set:
+#    - name: null
+#  - slot_was_set:
+#    - n_correct_qs: 0
+#  - action: action_lastquestion
+#  - slot_was_set:
+#    - exercise:
+#      - "SELECT col_name FROM Table_name\r"
+#  - slot_was_set:
+#    - level: 1
+#  - action: utter_lastquestion
+#  - action: utter_wherewego
+#  - intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Find the SQL statement that returns the number of modules taught by a Lecturer
+#  - slot_was_set:
+#    - exercise_id: q1
+#  - slot_was_set:
+#    - level: 1
+#  - slot_was_set:
+#    - n_correct_qs: 0
+#  - action: utter_trythis
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - slot_was_set:
+#    - n_correct_qs: 0
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - slot_was_set:
+#    - n_correct_qs: 1
+#  - action: utter_wherewego
+#  - intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Give the SQL statement that returns the names of Modules
+#  - slot_was_set:
+#    - exercise_id: q2
+#  - slot_was_set:
+#    - level: 1
+#  - slot_was_set:
+#    - n_correct_qs: 1
+#  - action: utter_trythis
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Incorrect
+#  - slot_was_set:
+#    - n_correct_qs: 1
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - slot_was_set:
+#    - n_correct_qs: 2
+#  - action: utter_wherewego
+#  - intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Find the SQL statement that returns the number of modules taught by a Lecturer
+#  - slot_was_set:
+#    - exercise_id: q1
+#  - slot_was_set:
+#    - level: 1
+#  - slot_was_set:
+#    - n_correct_qs: 2
+#  - action: utter_trythis
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - slot_was_set:
+#    - n_correct_qs: 3
+#  - action: utter_wherewego
+#  - intent: move_on
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Select all values from the Lecturer table
+#  - slot_was_set:
+#    - exercise_id: q6
+#  - slot_was_set:
+#    - level: 2
+#  - slot_was_set:
+#    - n_correct_qs: 0
+#  - action: utter_trythis
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - slot_was_set:
+#    - n_correct_qs: 1
+#  - action: utter_wherewego
+#  - intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#    - new_exercise: Find the SQL statement that returns all values in the Student table
+#  - slot_was_set:
+#    - exercise_id: q7
+#  - slot_was_set:
+#    - level: 2
+#  - slot_was_set:
+#    - n_correct_qs: 1
+#  - action: utter_trythis
+#  - intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#    - reply: Correct
+#  - slot_was_set:
+#    - n_correct_qs: 2
+#  - action: utter_wherewego
+#  - intent: quit_pls
+#  - action: action_quit
+
+- story: interactive_story_1
+  steps:
+  - intent: greet1
+  - action: utter_greet1
+  - intent: greet
+    entities:
+    - id: '13'
+  - slot_was_set:
+    - id: '13'
+  - action: action_lastquestion
+  - slot_was_set:
+    - exercise: "SELECT col_name FROM Table_name\r"
+  - slot_was_set:
+    - level: 1
+  - slot_was_set:
+    - n_correct_qs: 1
+  - slot_was_set:
+    - name: Jen
+  - slot_was_set:
+    - exercise_id: 1
+  - action: utter_lastquestion
+  - action: utter_wherewego
   - intent: similar
+  - action: action_newquestion
+  - slot_was_set:
+    - new_exercise: Give the SQL statement that returns the names of Modules
+  - slot_was_set:
+    - exercise_id: 2
+  - slot_was_set:
+    - level: 1
+  - slot_was_set:
+    - n_correct_qs: 1
+  - action: utter_trythis
+  - intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Incorrect
+  - slot_was_set:
+    - n_correct_qs: 1
+  - intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Incorrect
+  - slot_was_set:
+    - n_correct_qs: 1
+  - intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Incorrect
+  - slot_was_set:
+    - n_correct_qs: 1
+  - intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Correct
+  - slot_was_set:
+    - n_correct_qs: 2
+  - action: utter_wherewego
+  - intent: move_on
   - action: action_newquestion
   - slot_was_set:
     - new_exercise: Select all values from the Lecturer table
   - slot_was_set:
-    - exercise_id: q3
+    - exercise_id: 6
   - slot_was_set:
     - level: 2
+  - slot_was_set:
+    - n_correct_qs: 0
   - action: utter_trythis
-  - intent: general_help
-  - action: utter_general_help
+  - intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Incorrect
+  - slot_was_set:
+    - n_correct_qs: 0
   - intent: general_help_reply_syntax
   - action: action_general_help
   - slot_was_set:
@@ -900,69 +1272,44 @@ stories:
   - action: action_checkanswer
   - slot_was_set:
     - reply: Correct
-  - action: utter_wherewego
-  - intent: move_on
-  - action: action_newquestion
   - slot_was_set:
-    - new_exercise: Select distinct (different) name values from the Student table.
-  - slot_was_set:
-    - exercise_id: q5
-  - slot_was_set:
-    - level: 3
-  - action: utter_trythis
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: general_help_reply_syntax
-  - action: action_general_help
-  - slot_was_set:
-    - reply: null
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Correct
+    - n_correct_qs: 1
   - action: utter_wherewego
   - intent: similar
   - action: action_newquestion
   - slot_was_set:
-    - new_exercise: Return distinct values from the code column in Module.
+    - new_exercise: Find the SQL statement that returns all values in the Student table
   - slot_was_set:
-    - exercise_id: q6
+    - exercise_id: 7
   - slot_was_set:
-    - level: 3
+    - level: 2
+  - slot_was_set:
+    - n_correct_qs: 1
   - action: utter_trythis
-  - intent: general_help
-  - action: utter_general_help
-  - intent: general_help_reply_syntax
-  - action: action_general_help
-  - slot_was_set:
-    - reply: null
-  - intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-    - reply: Incorrect
-  - intent: general_help_reply_syntax
-  - action: action_general_help
-  - slot_was_set:
-    - reply: null
   - intent: answered
   - action: action_checkanswer
   - slot_was_set:
     - reply: Correct
+  - slot_was_set:
+    - n_correct_qs: 2
   - action: utter_wherewego
-  - intent: move_on
+  - intent: similar
   - action: action_newquestion
   - slot_was_set:
-    - new_exercise: "Return names of lecturers that teach the module code b7.\n"
+    - new_exercise: Return all values from Student_Module table
   - slot_was_set:
-    - exercise_id: q7
+    - exercise_id: 9
   - slot_was_set:
-    - level: 4
+    - level: 2
+  - slot_was_set:
+    - n_correct_qs: 2
   - action: utter_trythis
+  - intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Correct
+  - slot_was_set:
+    - n_correct_qs: 3
+  - action: utter_wherewego
   - intent: quit_pls
   - action: action_quit

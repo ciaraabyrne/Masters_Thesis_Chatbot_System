@@ -2,7 +2,19 @@ version: '3.1'
 intents:
 - answer_no
 - answered
-- chitchat
+- chitchat:
+    used_entities:
+    - answer
+    - email
+    - exercise
+    - exercise_id
+    - id
+    - level
+    - n_correct_qs
+    - name
+    - new_exercise
+    - reply
+    is_retrieval_intent: true
 - general_help
 - general_help_reply_syntax
 - goodbye
@@ -13,17 +25,20 @@ intents:
 - quit_pls
 - similar
 - supply_contact_info
-
+- show_solution
+- skip_question
 entities:
 - id
-- email
 - name
+- email
 - answer
 - exercise
 - new_exercise
 - exercise_id
 - reply
 - level
+- n_correct_qs
+- starting_question_level
 slots:
   name:
     type: text
@@ -51,7 +66,7 @@ slots:
     - type: from_entity
       entity: new_exercise
   exercise_id:
-    type: text
+    type: float
     mappings:
     - type: from_entity
       entity: exercise_id
@@ -74,24 +89,50 @@ slots:
     mappings:
     - type: from_entity
       entity: level
+  n_correct_qs:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: n_correct_qs
+  starting_question_level:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: starting_question_level
 responses:
   utter_greet1:
   - text: Hey! How are you? Have you talked to me before? If yes write your id, if no type 'n'
   utter_greet:
   - text: Great, thanks
   utter_answer_no:
-  - text: Could you please provide your first name and email?
+  - text: |-
+      Hello there! I am a Chatbot designed to tutor and teach the language of SQL to students.
+          >I will be your personal teaching assistant.
+          >I will present SQL exercises that you can practice on your machine.
+          >I will correct the answers to these SQL exercises and provide feedback.
+          >I will be available throughout the whole session to provide support and to answer any SQL question.
+          >End the session at any time by typing 'quit'. Next time you come back, we will pick up where you left off.
+      Just a few things then we can get started.
+      Could you please provide your first name and email please?
   utter_acknowledge_provided_info:
-  - text: Thanks {name} for providing this email {email}!
+  - text: Thanks {name} for providing this email {email}, lets begin our first question!
   utter_response:
   - text: Hi {name}!
   utter_lastquestion:
-  - text: I see your we last solved a problem similar to {exercise}.
+  - text: I see your we last solved a problem similar to {exercise}
   utter_wherewego:
-  - text: Do you wish to try another similar to this, move on to a harder exercise or quit?
-  - text: Wanna try another one of these or move on?
-  - text: Are you ready to advance to a harder SQL question or do you want a similar one?
-  - text: Are you feeling ready to move on or should we try another one of these?
+  - text: |
+        You have answered {n_correct_qs} questions correct on this topic!
+        Do you wish to try another similar to this, move on to a harder exercise or quit?
+  - text: |
+        {n_correct_qs} questions correct on this topic so far!
+        Wanna try another one of these or move on?
+  - text: |
+       You correctly answered {n_correct_qs} questions on this topic so far!
+       Are you ready to advance to a harder SQL question or do you want a similar one?
+  - text: |
+        On this topic, {n_correct_qs} questions were correct.
+        Are you ready to move on or should we try another one of these?
   utter_trythis:
   - text: |-
       Okay try this:
@@ -136,6 +177,18 @@ responses:
   - text: |-
       To select all fields in a table you have to use the astric (*) with SELECT, 'SELECT * FROM table_name'.
        This returns all values in a table.
+  utter_chitchat/ask_WHERE:
+    - text: WHERE - clause is used to filter records. It is used to extract only those records that fulfill a specified condition.
+  utter_chitchat/ask_WHERE_syntax:
+    - text: |-
+        SELECT column1, column2, ...
+        FROM table
+        WHERE condition;
+  utter_show_answer:
+    - text: Remember, you can request the solution if you are fed up!
+    - text: Ask to see the answer if you have had enough.
+    - text: I can show you the solution to this question if you are fed up.
+
 actions:
 - action_checkanswer
 - action_general_help
@@ -146,11 +199,14 @@ actions:
 - action_submit
 - utter_acknowledge_provided_info
 - utter_answer_no
+- utter_chitchat
 - utter_general_help
 - utter_greet1
 - utter_lastquestion
 - utter_trythis
 - utter_wherewego
+- action_skip_question
+- action_show_answer
 forms:
   person_form:
     required_slots:

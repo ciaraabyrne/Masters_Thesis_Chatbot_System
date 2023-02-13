@@ -28,7 +28,9 @@ from rasa_sdk.executor import CollectingDispatcher
 #
 #         return []
 
-from database_con import dataGeneralQuestion,DataUpdate, dataQuery, dataGetId, dataGetPrevQ, dataGetNewQ, dataCheckAnswer, dataUpdateOnQuit
+from database_con import dataGeneralQuestion, DataUpdate, dataQuery, dataGetId, dataGetPrevQ, dataGetNewQ, \
+    dataCheckAnswer, dataUpdateOnQuit, FirstTimeQustion, dataShowAnswer
+
 
 class ActionGeneralQuestion(Action):
     def name(self):
@@ -41,6 +43,7 @@ class ActionGeneralQuestion(Action):
         # dispatcher.utter_message(message)
         return [SlotSet("reply", new_q)]
 
+
 class ActionCheckAnswer(Action):
     def name(self):
         return "action_checkanswer"  # Be careful, did you mean action_fetch_data?
@@ -48,9 +51,10 @@ class ActionCheckAnswer(Action):
     def run(self, dispatcher, tracker, domain):
         message = tracker.latest_message.get('text')
 
-        new_q = dataCheckAnswer(message, tracker.get_slot("exercise_id"), dispatcher, tracker.get_slot("id"))
+        new_q, n = dataCheckAnswer(message, tracker.get_slot("exercise_id"), dispatcher, tracker.get_slot("id"),
+                                   tracker.get_slot("n_correct_qs"))
         # dispatcher.utter_message(message)
-        return [SlotSet("reply", new_q)]
+        return [SlotSet("reply", new_q), SlotSet("n_correct_qs", n)]
 
 
 class ActionNewQuestion(Action):
@@ -59,12 +63,16 @@ class ActionNewQuestion(Action):
 
     def run(self, dispatcher, tracker, domain):
         x = tracker.latest_message['intent'].get('name')
-        # dispatcher.utter_message(x)
-
-        new_q, qid, level = dataGetNewQ(x, tracker.get_slot("id"), dispatcher, tracker.get_slot("level"),
-                                        tracker.get_slot("exercise_id"))
+        # dispatcher.utter_message(f"----------len(NAME) IS {len(x)}----------.")
+        # if len(x) < 2:
+        #     x = "similar"
+        # # dispatcher.utter_message(x)
+        # dispatcher.utter_message(f"----------NAME IS {x}----------.")
+        new_q, qid, level, n = dataGetNewQ(x, tracker.get_slot("id"), dispatcher, tracker.get_slot("level"),
+                                           tracker.get_slot("exercise_id"), tracker.get_slot("n_correct_qs"))
         # dispatcher.utter_message(qid)
-        return [SlotSet("new_exercise", new_q), SlotSet("exercise_id", qid), SlotSet("level", level)]
+        return [SlotSet("new_exercise", new_q), SlotSet("exercise_id", qid), SlotSet("level", level),
+                SlotSet("n_correct_qs", n)]
 
 
 class ActionLastQuestion(Action):
@@ -72,9 +80,10 @@ class ActionLastQuestion(Action):
         return "action_lastquestion"  # Be careful, did you mean action_fetch_data?
 
     def run(self, dispatcher, tracker, domain):
-        x, level = dataGetPrevQ(tracker.get_slot("id"), dispatcher)
+        x, level, n, na, qid = dataGetPrevQ(tracker.get_slot("id"), dispatcher)
         # dispatcher.utter_message(response="utter_response")
-        return [SlotSet("exercise", x), SlotSet("level", level)]
+        return [SlotSet("exercise", x), SlotSet("level", level), SlotSet("n_correct_qs", n), SlotSet("name", na),
+                SlotSet("exercise_id", qid)]
 
 
 class ActionResponse(Action):
@@ -82,9 +91,39 @@ class ActionResponse(Action):
         return "action_response"  # Be careful, did you mean action_fetch_data?
 
     def run(self, dispatcher, tracker, domain):
-        dataQuery(tracker.get_slot("id"), dispatcher)
+        name = dataQuery(tracker.get_slot("name"), dispatcher)
+        # dispatcher.utter_message(response="utter_response")
+        return [SlotSet("name", name), SlotSet("n_correct_qs", 0)]
+
+
+class ActionShowAnswer(Action):
+    def name(self):
+        return "action_show_answer"  # Be careful, did you mean action_fetch_data?
+
+    def run(self, dispatcher, tracker, domain):
+        dataShowAnswer(dispatcher, tracker.get_slot("exercise_id"))
         # dispatcher.utter_message(response="utter_response")
         return []
+
+
+class ActionSkipQuestion(Action):
+    def name(self):
+        return "action_skip_question"  # Be careful, did you mean action_fetch_data?
+
+    def run(self, dispatcher, tracker, domain):
+        x = 'similar'
+        eid = tracker.get_slot("exercise_id")
+        # ex_id = eid + 1
+        # dispatcher.utter_message(f"----------len(NAME) IS {len(x)}----------.")
+        # if len(x) < 2:
+        #     x = "similar"
+        # # dispatcher.utter_message(x)
+        # dispatcher.utter_message(f"----------NAME IS {x}----------.")
+        new_q, qid, level, n = dataGetNewQ(x, tracker.get_slot("id"), dispatcher, tracker.get_slot("level"), eid
+                                           , tracker.get_slot("n_correct_qs"))
+        # dispatcher.utter_message(qid)
+        return [SlotSet("new_exercise", new_q), SlotSet("exercise_id", qid), SlotSet("level", level),
+                SlotSet("n_correct_qs", n)]
 
 
 class ActionSubmit(Action):
@@ -95,10 +134,13 @@ class ActionSubmit(Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         DataUpdate(tracker.get_slot("name"),
                    tracker.get_slot("email"), dispatcher)
-        dataGetId(tracker.get_slot("name"),
-                  tracker.get_slot("email"), dispatcher)
-        dispatcher.utter_message("Thanks for the valuable information. ")
-        return []
+        x = dataGetId(tracker.get_slot("name"),
+                      tracker.get_slot("email"), dispatcher)
+        question, q_id = FirstTimeQustion(dispatcher)
+
+        # dispatcher.utter_message("Thanks for the valuable information. ")
+        return [SlotSet("id", x), SlotSet("new_exercise", question), SlotSet("exercise_id", q_id),
+                SlotSet("n_correct_qs", 0)]
 
 
 class ActionQuit(Action):
@@ -108,7 +150,8 @@ class ActionQuit(Action):
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         dataUpdateOnQuit(tracker.get_slot("id"),
-                         tracker.get_slot("level"), dispatcher)
+                         tracker.get_slot("level"), dispatcher, tracker.get_slot("name"),
+                         tracker.get_slot("n_correct_qs"))
         return []
 
 
