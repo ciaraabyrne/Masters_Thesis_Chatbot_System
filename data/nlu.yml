@@ -30,6 +30,7 @@ nlu:
     - [1](id)
     - [10](id)
     - [13](id)
+    - [19](id)
 - intent: goodbye
   examples: |
     - cu
@@ -76,6 +77,9 @@ nlu:
     - a harder exercise
     - next question please
     - next question
+    - harder questions
+    - move on to a harder exercise
+    - can we move on?
 - intent: similar
   examples: |
     - try a similar problem
@@ -86,6 +90,9 @@ nlu:
     - similar question
     - similar question please
     - try a similar question
+    - similar one
+    - another one of these
+    - try a similar one
 - intent: answered
   examples: |
     - the answer is ["SELECT x FROM y"](answer)
@@ -143,6 +150,15 @@ nlu:
     - SELECT * FROM Module
     - SELECT * FROM lecturers
     - SELECT * FROM Student_Module
+    - SELECT names FROM Modules
+    - SELECT name FROM Courses
+    - SELECT email FROM Student
+    - SELECT id,f_name,s_name,number_modules FROM Lecturer
+    - SELECT f_name FROM Student
+    - SELECT DISTINCT f_name FROM Student
+    - SELECT department FROM Course
+    - SELECT DISTINCT module_code FROM Student_Module
+    - SELECT f_name FROM Lecturer WHERE number_modules = 2
 - intent: quit_pls
   examples: |
     - quit
@@ -222,8 +238,6 @@ nlu:
     - what is the syntax to filter records in a table?
     - What statement can filter records in a table
     - what is the syntax to filter values in columns
-
-
 - intent: general_help
   examples: |
     - how do I start?
@@ -237,6 +251,7 @@ nlu:
     - im stuck
     - i need help
     - I don't understand what to do.
+    - How do i start this?
 - intent: general_help_reply_syntax
   examples: |
     - syntax.
@@ -256,7 +271,6 @@ nlu:
     - syntax
     - what is the syntax?
     - what syntax do i use?
-
 - intent: show_solution
   examples: |
     - can I see the solution?
@@ -269,7 +283,7 @@ nlu:
     - answer please
     - answer
     - solution
-
+    - can i see the solution to this question?
 - intent: skip_question
   examples: |
     - can I skip this question?
@@ -280,3 +294,6 @@ nlu:
     - skip
     - new question please
     - I would like to try a new question
+- intent: chitchat
+  examples: |
+    - How do I exclude duplicate values?

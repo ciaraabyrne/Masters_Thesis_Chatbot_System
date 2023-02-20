@@ -14,6 +14,7 @@ intents:
     - name
     - new_exercise
     - reply
+    - starting_question_level
     is_retrieval_intent: true
 - general_help
 - general_help_reply_syntax
@@ -23,10 +24,10 @@ intents:
 - move_on
 - nlu_fallback
 - quit_pls
-- similar
-- supply_contact_info
 - show_solution
+- similar
 - skip_question
+- supply_contact_info
 entities:
 - id
 - name
@@ -97,8 +98,8 @@ slots:
   starting_question_level:
     type: text
     mappings:
-      - type: from_entity
-        entity: starting_question_level
+    - type: from_entity
+      entity: starting_question_level
 responses:
   utter_greet1:
   - text: Hey! How are you? Have you talked to me before? If yes write your id, if no type 'n'
@@ -122,17 +123,17 @@ responses:
   - text: I see your we last solved a problem similar to {exercise}
   utter_wherewego:
   - text: |
-        You have answered {n_correct_qs} questions correct on this topic!
-        Do you wish to try another similar to this, move on to a harder exercise or quit?
+      You have answered {n_correct_qs} questions correct on this topic!
+      Do you wish to try another similar to this, move on to a harder exercise or quit?
   - text: |
-        {n_correct_qs} questions correct on this topic so far!
-        Wanna try another one of these or move on?
+      {n_correct_qs} questions correct on this topic so far!
+      Wanna try another one of these or move on?
   - text: |
-       You correctly answered {n_correct_qs} questions on this topic so far!
-       Are you ready to advance to a harder SQL question or do you want a similar one?
+      You correctly answered {n_correct_qs} questions on this topic so far!
+      Are you ready to advance to a harder SQL question or do you want a similar one?
   - text: |
-        On this topic, {n_correct_qs} questions were correct.
-        Are you ready to move on or should we try another one of these?
+      On this topic, {n_correct_qs} questions were correct.
+      Are you ready to move on or should we try another one of these?
   utter_trythis:
   - text: |-
       Okay try this:
@@ -178,17 +179,16 @@ responses:
       To select all fields in a table you have to use the astric (*) with SELECT, 'SELECT * FROM table_name'.
        This returns all values in a table.
   utter_chitchat/ask_WHERE:
-    - text: WHERE - clause is used to filter records. It is used to extract only those records that fulfill a specified condition.
+  - text: WHERE - clause is used to filter records. It is used to extract only those records that fulfill a specified condition.
   utter_chitchat/ask_WHERE_syntax:
-    - text: |-
-        SELECT column1, column2, ...
-        FROM table
-        WHERE condition;
+  - text: |-
+      SELECT column1, column2, ...
+      FROM table
+      WHERE condition;
   utter_show_answer:
-    - text: Remember, you can request the solution if you are fed up!
-    - text: Ask to see the answer if you have had enough.
-    - text: I can show you the solution to this question if you are fed up.
-
+  - text: Remember, you can request the solution if you are fed up!
+  - text: Ask to see the answer if you have had enough.
+  - text: I can show you the solution to this question if you are fed up.
 actions:
 - action_checkanswer
 - action_general_help
@@ -196,6 +196,8 @@ actions:
 - action_newquestion
 - action_quit
 - action_response
+- action_show_answer
+- action_skip_question
 - action_submit
 - utter_acknowledge_provided_info
 - utter_answer_no
@@ -205,8 +207,6 @@ actions:
 - utter_lastquestion
 - utter_trythis
 - utter_wherewego
-- action_skip_question
-- action_show_answer
 forms:
   person_form:
     required_slots:

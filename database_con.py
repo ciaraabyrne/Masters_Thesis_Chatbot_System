@@ -198,12 +198,30 @@ def dataCheckAnswer(answer, exercise_id, dispatcher, id, n_correct_qs):
                 mycursor.execute(ans)
                 results3 = mycursor.fetchall()
                 # print(results3)
-                if results2 == results3:
-                    dispatcher.utter_message(
-                        f"Looks like this is correct!\n However I got a slightly different answer: {ans}")
-                    reply2 = "Correct"
-                    n = n_correct_qs + 1
-                    return reply2, n
+                difference = 0
+                if len(results3) > 1:
+                    for x, y in zip(results3, results2):
+                        new_list = list(set(x).intersection(y))
+                        new_list_diff = list(set(x).difference(y))
+                        if len(new_list_diff) > 0:
+                            difference = difference + 1
+                    if difference == 0:
+                        dispatcher.utter_message(f"Looks like this is correct! However I got a slightly different answer: {ans}")
+                        reply2 = "Correct"
+                        n = n_correct_qs + 1
+                        return reply2, n
+                    if difference > 0:
+                        dispatcher.utter_message(f"Not quite... Try again!")
+                        reply2 = "Incorrect"
+                        return reply2, n_correct_qs
+
+                # print(results3)
+                if len(results3) == 1:
+                    if results2 == results3:
+                        dispatcher.utter_message(f"Looks like this is correct! However I got a slightly different answer: {ans}")
+                        reply2 = "Correct"
+                        n = n_correct_qs + 1
+                        return reply2, n
 
 
     except:
@@ -281,7 +299,7 @@ def dataGeneralQuestion(message, level, dispatcher):
             dispatcher.utter_message(
                 f" Remember you learned about WHERE with AND/OR/NOT in a SELECT statement when multiple conditions are involved? \n Try this syntax in your exercise: \n SELECT column1, column2 \n FROM table1 WHERE condition1 AND (condition2 OR condition3)")
 
-    if 'theory' in msg:
+    elif 'theory' in msg:
         if level == 1:
             dispatcher.utter_message(
                 f" Remember you learned about the SELECT statement?  \n SELECT - extracts data from a database.")
@@ -300,6 +318,26 @@ def dataGeneralQuestion(message, level, dispatcher):
         if level == 6:
             dispatcher.utter_message(
                 f" Remember you learned about WHERE with AND/OR/NOT in a SELECT statement when multiple conditions are involved? \n In this question more than one type of operator is used. \n This means there are more than 2 conditions which use a combination of operators. \n For example AND with OR..")
+
+    else:
+        if level == 1:
+            dispatcher.utter_message(
+                f" Remember you learned about the SELECT statement? \n Try this syntax in your exercise: \n SELECT column1, column2  \n FROM table_name;")
+        if level == 2:
+            dispatcher.utter_message(
+                f" Remember you learned about the SELECT statement? \n Try this syntax in your exercise: \n SELECT * FROM table_name;")
+        if level == 3:
+            dispatcher.utter_message(
+                f" Remember you learned about the SELECT DISTINCT statement? \n Try this syntax in your exercise: \n SELECT DISTINCT column1, column2 \n FROM table_name;")
+        if level == 4:
+            dispatcher.utter_message(
+                f" Remember you learned about using WHERE in a SELECT statement when conditions are involved? \n Try this syntax in your exercise: \n SELECT column1, column2 \n FROM table1 WHERE condition")
+        if level == 5:
+            dispatcher.utter_message(
+                f" Remember you learned about WHERE with AND/OR/NOT in a SELECT statement when multiple conditions are involved? \n Try this syntax in your exercise: \n SELECT column1, column2 \n FROM table1 WHERE condition1 AND condition2")
+        if level == 6:
+            dispatcher.utter_message(
+                f" Remember you learned about WHERE with AND/OR/NOT in a SELECT statement when multiple conditions are involved? \n Try this syntax in your exercise: \n SELECT column1, column2 \n FROM table1 WHERE condition1 AND (condition2 OR condition3)")
 
 
 def FirstTimeQustion(dispatcher):

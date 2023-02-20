@@ -21,3 +21,12 @@ rules:
   steps:
   - intent: chitchat
   - action: utter_chitchat
+
+- rule: show answer
+  steps:
+  - intent: show_solution
+  - action: action_show_answer
+  - action: utter_wherewego
+
+
+
