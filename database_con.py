@@ -102,8 +102,8 @@ def dataGetNewQ(name, id, dispatcher, level_sql, exercise_id, n_correct_qs):
     # check if they want same or next level
 
     if name == 'similar':
-        # dispatcher.utter_message(f"Type :n_correct_qs {type(n_correct_qs)}")
-        # dispatcher.utter_message(f"Type :exercise_id {type(exercise_id)}")
+        dispatcher.utter_message(f"Type :n_correct_qs {type(n_correct_qs)}")
+        dispatcher.utter_message(f"Type :exercise_id {type(exercise_id)}")
         exercise_id = int(exercise_id) + 1
         sql2 = "SELECT question,Question_id FROM SQL_level WHERE level='%s' AND Question_id ='%s'" % (
             level_sql, exercise_id)

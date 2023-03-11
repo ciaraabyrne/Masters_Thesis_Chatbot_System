@@ -193,6 +193,7 @@ nlu:
     - what statement selects distinct values?
     - why is there duplicate returned values in my SELECT statement?
     - I dont want duplicated values
+    - How do I exclude duplicate values?
 - intent: chitchat/ask_SELECT_DISTINCT_syntax
   examples: |
     - what is the syntax to return distinct values?
@@ -294,6 +295,6 @@ nlu:
     - skip
     - new question please
     - I would like to try a new question
-- intent: chitchat
-  examples: |
-    - How do I exclude duplicate values?
+#- intent: chitchat
+#  examples: |
+#    - How do I exclude duplicate values?
