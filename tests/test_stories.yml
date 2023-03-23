@@ -2,89 +2,89 @@
 #### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
 
 stories:
-- story: A basic story test
-  steps:
-  - user: |
-      hello
-    intent: greet1
-  - action: utter_greet1
-  - user: |
-     Yes [6]{"entity": "id"}
-    intent: greet
-  - action: action_response
-  - action: action_lastquestion
-  - slot_was_set:
-      - exercise: "SELECT DISTINCT column1, column2, ... FROM table_name;\r"
-  - slot_was_set:
-      - level: "3"
-  - action: utter_lastquestion
-  - action: utter_wherewego
-  - user: |
-      try a similar question.
-    intent: similar
-  - action: action_newquestion
-  - slot_was_set:
-      - new_exercise: Select distinct (different) name values from the Student table.
-  - slot_was_set:
-      - exercise_id: q5
-  - slot_was_set:
-      - level: 3
-  - action: utter_trythis
-  - user: |
-      SELECT DISTINCT name from Students
-    intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-      - reply: Incorrect
-  - action: action_listen
-  - user: |
-      select DISTINCT name from Students
-    intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-      - reply: Incorrect
-  - action: action_listen
-  - user: |
-      SELECT DISTINCT name FROM Students
-    intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-      - reply: Correct
-  - action: utter_wherewego
-  - action: action_listen
-  - user: |
-      can we move on?
-    intent: move_on
-  - action: action_newquestion
-  - slot_was_set:
-      - new_exercise: Return names of lecturers that teach the module code b7.
-  - slot_was_set:
-      - exercise_id: q7
-  - slot_was_set:
-      - level: 4
-  - action: utter_trythis
-  - action: action_listen
-  - user: |
-      SELECT code='b7' FROM Lecturer
-    intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-      - reply: Incorrect
-  - action: action_listen
-  - user: |
-      SELECT name FROM Lecturer WHERE code= b7
-    intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-      - reply: Incorrect
-  - action: action_listen
-  - user: |
-      SELECT name FROM Lecturer WHERE code='b7'
-    intent: answered
-  - action: action_checkanswer
-  - slot_was_set:
-      - reply: correct
-  - action: utter_wherewego
+#- story: A basic story test
+#  steps:
+#  - user: |
+#      hello
+#    intent: greet1
+#  - action: utter_greet1
+#  - user: |
+#     Yes [6]{"entity": "id"}
+#    intent: greet
+#  - action: action_response
+#  - action: action_lastquestion
+#  - slot_was_set:
+#      - exercise: "SELECT DISTINCT column1, column2, ... FROM table_name;\r"
+#  - slot_was_set:
+#      - level: "3"
+#  - action: utter_lastquestion
+#  - action: utter_wherewego
+#  - user: |
+#      try a similar question.
+#    intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#      - new_exercise: Select distinct (different) name values from the Student table.
+#  - slot_was_set:
+#      - exercise_id: q5
+#  - slot_was_set:
+#      - level: 3
+#  - action: utter_trythis
+#  - user: |
+#      SELECT DISTINCT name from Students
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: Incorrect
+#  - action: action_listen
+#  - user: |
+#      select DISTINCT name from Students
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: Incorrect
+#  - action: action_listen
+#  - user: |
+#      SELECT DISTINCT name FROM Students
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: Correct
+#  - action: utter_wherewego
+#  - action: action_listen
+#  - user: |
+#      can we move on?
+#    intent: move_on
+#  - action: action_newquestion
+#  - slot_was_set:
+#      - new_exercise: Return names of lecturers that teach the module code b7.
+#  - slot_was_set:
+#      - exercise_id: q7
+#  - slot_was_set:
+#      - level: 4
+#  - action: utter_trythis
+#  - action: action_listen
+#  - user: |
+#      SELECT code='b7' FROM Lecturer
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: Incorrect
+#  - action: action_listen
+#  - user: |
+#      SELECT name FROM Lecturer WHERE code= b7
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: Incorrect
+#  - action: action_listen
+#  - user: |
+#      SELECT name FROM Lecturer WHERE code='b7'
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: correct
+#  - action: utter_wherewego
 
 
 
@@ -135,11 +135,7 @@ stories:
       Can I see the solution please?
     intent: show_solution
   - action: action_show_answer
-  - action: utter_wherewego
-  - user: |
-      I would like to try a similar one
-    intent: similar
-  - action: action_newquestion
+  - action: action_skip_question
   - slot_was_set:
     - new_exercise: 'Return names of Courses '
   - slot_was_set:
@@ -159,7 +155,7 @@ stories:
     - n_correct_qs: 0
   - user: |
       can I skip this question?
-    intent: skip_question
+    intent: show_solution
   - action: action_show_answer
   - action: action_skip_question
   - slot_was_set:
@@ -291,11 +287,7 @@ stories:
       Can I just see the answer
     intent: show_solution
   - action: action_show_answer
-  - action: utter_wherewego
-  - user: |
-      I'd like to try a similar question
-    intent: similar
-  - action: action_newquestion
+  - action: action_skip_question
   - slot_was_set:
     - new_exercise: Get the values of module_code in Student_Module table, excluding duplicate values
   - slot_was_set:
@@ -306,17 +298,21 @@ stories:
     - n_correct_qs: 1
   - action: utter_trythis
   - user: |
-
-  - intent: chitchat
-  - action: utter_chitchat
-  - intent: answered
+      how do I exclude returning duplicate values?
+    intent: chitchat/ask_SELECT_DISTINCT
+  - action: utter_chitchat/ask_SELECT_DISTINCT
+  - user: |
+      SELECT DISTINCT module_code FROM Student_Module
+    intent: answered
   - action: action_checkanswer
   - slot_was_set:
     - reply: Correct
   - slot_was_set:
     - n_correct_qs: 2
   - action: utter_wherewego
-  - intent: move_on
+  - user: |
+      can we try to a harder one?
+    intent: move_on
   - action: action_newquestion
   - slot_was_set:
     - new_exercise: Select the Lecturer first names where the number of modules they teach is 2
@@ -327,37 +323,213 @@ stories:
   - slot_was_set:
     - n_correct_qs: 0
   - action: utter_trythis
-  - intent: general_help
+  - user: |
+      I dont know how to do this
+    intent: general_help
   - action: action_general_help
   - slot_was_set:
     - reply: null
-  - intent: answered
+  - user: |
+      SELECT f_name FROM Lecturer WHERE number_modules = 2
+    intent: answered
   - action: action_checkanswer
   - slot_was_set:
     - reply: Correct
   - slot_was_set:
     - n_correct_qs: 1
   - action: utter_wherewego
-  - intent: quit_pls
+  - user: |
+     I want to quit
+    intent: quit_pls
   - action: action_quit
 
-
-#  - action: utter_ask_location
-#  - user: |
-#      in [Paris]{"entity": "location"}
-#    intent: inform
-#  - action: utter_ask_price
-#
-#- story: A test where a custom action returns events
-#  steps:
-#  - user: |
-#      hey
-#    intent: greet
-#  - action: my_custom_action
-#  - slot_was_set:
-#    - my_slot: "value added by custom action"
-#  - action: utter_ask_age
-#  - user: |
-#      thanks
-#    intent: thankyou
-#  - action: utter_no_worries
+- story: basic test story 2
+  steps:
+  - user: |
+      hi
+    intent: greet1
+  - action: utter_greet1
+  - user: |
+      [18]{"entity": "id"}
+    intent: greet
+  - action: action_lastquestion
+  - slot_was_set:
+    - exercise: "SELECT * FROM Table_name\r"
+  - slot_was_set:
+    - level: 2
+  - slot_was_set:
+    - n_correct_qs: 1
+  - slot_was_set:
+    - name: Joey
+  - slot_was_set:
+    - exercise_id: 6
+  - action: utter_lastquestion
+  - action: utter_wherewego
+  - user: |
+      Another one of these
+    intent: similar
+  - action: action_newquestion
+  - slot_was_set:
+    - new_exercise: Find the SQL statement that returns all values in the Student table
+  - slot_was_set:
+    - exercise_id: 7
+  - slot_was_set:
+    - level: 2
+  - slot_was_set:
+    - n_correct_qs: 1
+  - action: utter_trythis
+  - user: |
+      SELECT ALL from Students
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Incorrect
+  - slot_was_set:
+    - n_correct_qs: 1
+  - user: |
+      SELECT * FROM Student
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Correct
+  - slot_was_set:
+    - n_correct_qs: 2
+  - action: utter_wherewego
+  - user: |
+      I want to try a similar one
+    intent: similar
+  - action: action_newquestion
+  - slot_was_set:
+    - new_exercise: Select all values from the Course table
+  - slot_was_set:
+    - exercise_id: 8
+  - slot_was_set:
+    - level: 2
+  - slot_was_set:
+    - n_correct_qs: 2
+  - action: utter_trythis
+  - user: |
+      SELECT code, name, department from Course
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Incorrect
+  - slot_was_set:
+      - n_correct_qs: 2
+  - user: |
+      SELECT * FROM Course
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Correct
+  - slot_was_set:
+    - n_correct_qs: 3
+  - action: utter_wherewego
+  - user: |
+      I want to try harder question
+    intent: move_on
+  - action: action_newquestion
+  - slot_was_set:
+    - new_exercise: Select distinct (different) first name values from the Student table.
+  - slot_was_set:
+    - exercise_id: 11
+  - slot_was_set:
+    - level: 3
+  - slot_was_set:
+    - n_correct_qs: 0
+  - action: utter_trythis
+  - user: |
+      How do I start this?
+    intent: general_help
+  - action: action_general_help
+  - slot_was_set:
+      - reply: null
+  - user: |
+      SELECT DISTINCT f_name FROM Student
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+      - reply: Correct
+  - slot_was_set:
+      - n_correct_qs: 1
+  - action: utter_wherewego
+  - user: |
+      try a similar question please
+    intent: similar
+  - action: action_newquestion
+  - slot_was_set:
+      - new_exercise: Return distinct values from the department column in Course.
+  - slot_was_set:
+      - exercise_id: 12
+  - slot_was_set:
+      - level: 3
+  - slot_was_set:
+      - n_correct_qs: 1
+  - action: utter_trythis
+  - user: |
+      lets skip it
+    intent: show_solution
+  - action: action_show_answer
+  - action: action_skip_question
+  - slot_was_set:
+    - new_exercise: Get the values of module_code in Student_Module table, excluding duplicate values
+  - slot_was_set:
+    - exercise_id: 13
+  - slot_was_set:
+    - level: 3
+  - slot_was_set:
+    - n_correct_qs: 1
+  - action: utter_trythis
+  - user: |
+      how to I write select distinct?
+    intent: chitchat/ask_SELECT_DISTINCT_syntax
+  - action: utter_chitchat/ask_SELECT_DISTINCT_syntax
+  - user: |
+      SELECT DISTINCT module_code FROM Student_Module
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Correct
+  - slot_was_set:
+    - n_correct_qs: 2
+  - action: utter_wherewego
+  - user: |
+      Lets move onto a more difficult topic.
+    intent: move_on
+  - action: action_newquestion
+  - slot_was_set:
+    - new_exercise: Select the Lecturer first names where the number of modules they teach is 2
+  - slot_was_set:
+    - exercise_id: 16
+  - slot_was_set:
+    - level: 4
+  - slot_was_set:
+    - n_correct_qs: 0
+  - action: utter_trythis
+  - user: |
+      can I see the answer?
+    intent: show_solution
+  - action: action_show_answer
+  - action: action_skip_question
+  - slot_was_set:
+    - new_exercise: Select Course names where the department is 'Engineering'
+  - slot_was_set:
+    - exercise_id: 17
+  - slot_was_set:
+    - level: 4
+  - slot_was_set:
+    - n_correct_qs: 0
+  - action: utter_trythis
+  - user: |
+      SELECT name from Course WHERE department = 'Engineering'
+    intent: answered
+  - action: action_checkanswer
+  - slot_was_set:
+    - reply: Correct
+  - slot_was_set:
+    - n_correct_qs: 1
+  - action: utter_wherewego
+  - user: |
+      quit
+    intent: quit_pls
+  - action: action_quit

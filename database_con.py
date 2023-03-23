@@ -12,7 +12,7 @@ def DataUpdate(name, Email, dispatcher):
     vals = (name, Email)
     mycursor.execute(sql, vals)
     mydb.commit()
-    dispatcher.utter_message(f" {name} was commited to database")
+    # dispatcher.utter_message(f" {name} was commited to database")
 
 
 def dataQuery(person_id, dispatcher):
@@ -102,8 +102,8 @@ def dataGetNewQ(name, id, dispatcher, level_sql, exercise_id, n_correct_qs):
     # check if they want same or next level
 
     if name == 'similar':
-        dispatcher.utter_message(f"Type :n_correct_qs {type(n_correct_qs)}")
-        dispatcher.utter_message(f"Type :exercise_id {type(exercise_id)}")
+        # dispatcher.utter_message(f"Type :n_correct_qs {type(n_correct_qs)}")
+        # dispatcher.utter_message(f"Type :exercise_id {type(exercise_id)}")
         exercise_id = int(exercise_id) + 1
         sql2 = "SELECT question,Question_id FROM SQL_level WHERE level='%s' AND Question_id ='%s'" % (
             level_sql, exercise_id)
@@ -344,7 +344,7 @@ def FirstTimeQustion(dispatcher):
     mydb = mysql.connector.connect(host="localhost", user="root",
                                    passwd="cremore23", database="Rasa_feedback")
     mycursor = mydb.cursor()
-    sql2 = "SELECT question,Question_id FROM SQL_level WHERE level='1' AND Question_id ='1'"
+    sql2 = "SELECT question,Question_id, q_name FROM SQL_level WHERE level='1' AND Question_id ='1'"
     try:
         # Execute the SQL Query
         mycursor.execute(sql2)
@@ -355,9 +355,10 @@ def FirstTimeQustion(dispatcher):
             # dispatcher.utter_message(f"resuls[0] \n {row[1]} \n ")
             question = row[0]
             q_id = row[1]
+            qname = row[2]
             # dispatcher.utter_message( f"your level_sql is \n {level_sql} \n ")
 
-            return question, q_id
+            return question, q_id,qname
     except:
         dispatcher.utter_message("Error : Unable to fetch data.")
 

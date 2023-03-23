@@ -16,13 +16,16 @@
     // Replace 1.x.x with the version that you want
     (e.async = !0),
     (e.onload = () => {
+      sessionStorage.clear();
       window.WebChat.default(
         {
-         // initPayload: "/greet", // user starts
+          initPayload: "/greet1", // user starts
           customData: { language: "en" },
-          socketUrl: "http://35.240.47.172",
+          socketUrl: "http://localhost:5005",
+          profileAvatar: "https://rasa.com/assets/img/demo/rasa_avatar.png",
           // add other props here
-          embedded: true
+          params: { "storage": "session" },
+          embedded: true,
         },
         null
       );

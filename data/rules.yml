@@ -26,7 +26,21 @@ rules:
   steps:
   - intent: show_solution
   - action: action_show_answer
-  - action: utter_wherewego
+  - action: action_skip_question
+  wait_for_user_input: false
+
+- rule: Ask the user to rephrase whenever they send a message with low NLU confidence
+  steps:
+  - intent: nlu_fallback
+  - action: utter_please_rephrase
 
 
+- rule: show question
+  steps:
+    - intent: repeat_question
+    - action: utter_repeat_question
 
+- rule: quit
+  steps:
+    - intent: quit_pls
+    - action: action_quit

@@ -136,11 +136,12 @@ class ActionSubmit(Action):
                    tracker.get_slot("email"), dispatcher)
         x = dataGetId(tracker.get_slot("name"),
                       tracker.get_slot("email"), dispatcher)
-        question, q_id = FirstTimeQustion(dispatcher)
+        question, q_id, ex = FirstTimeQustion(dispatcher)
 
         # dispatcher.utter_message("Thanks for the valuable information. ")
         return [SlotSet("id", x), SlotSet("new_exercise", question), SlotSet("exercise_id", q_id),
-                SlotSet("n_correct_qs", 0)]
+                SlotSet("n_correct_qs", 0),SlotSet("level", 1), SlotSet("exercise", ex)]
+
 
 
 class ActionQuit(Action):
@@ -149,9 +150,8 @@ class ActionQuit(Action):
         return "action_quit"
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        dataUpdateOnQuit(tracker.get_slot("id"),
-                         tracker.get_slot("level"), dispatcher, tracker.get_slot("name"),
-                         tracker.get_slot("n_correct_qs"))
+        # dispatcher.utter_message("here")
+        dataUpdateOnQuit(tracker.get_slot("id"), tracker.get_slot("level"), dispatcher, tracker.get_slot("name"),tracker.get_slot("n_correct_qs"))
         return []
 
 

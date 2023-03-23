@@ -51,7 +51,6 @@ nlu:
     - n.
     - nope
     - N
-    - \stop
 - intent: supply_contact_info
   examples: |
     - My name is [John](name). email's [john@email.com](email)
@@ -68,6 +67,7 @@ nlu:
     - [Harry](name), [harry@gmail.com](email)
     - name: [donald](name), email: [donald@gmail.com](email)
     - My name is [Joey](name) and email [joey@gmail.com](email)
+    - My name is [Cian](name) and my email is [cian@mail.com](email)
 - intent: move_on
   examples: |
     - move on
@@ -80,6 +80,14 @@ nlu:
     - harder questions
     - move on to a harder exercise
     - can we move on?
+    - more difficult question please
+    - can we move to more difficult questions
+    - can I move onto a harder question
+    - I would like like to move onto a harder topic
+    - i want to try a harder question
+    - I would like to advance to harder questions
+    - can we try to a harder one?
+    - move onto a harder question
 - intent: similar
   examples: |
     - try a similar problem
@@ -93,12 +101,17 @@ nlu:
     - similar one
     - another one of these
     - try a similar one
+    - I would like to try another one of these.
+    - Can we try another one of these
+    - I would like to try a similar question
+    - I want to try another one of these questions
+    - I want to try another one of these
+    - I want to do a similar question
+    - another similar to this
+    - another one
+    - do a similar one
 - intent: answered
   examples: |
-    - the answer is ["SELECT x FROM y"](answer)
-    - ["SELECT x FROM y"](answer)
-    - ["SELECT * FROM d"](answer)
-    - ["SELECT r FROM d WHERE"](answer)
     - SELECT * FROM Lecturer
     - SELECT * FROM Lecturer;
     - SELECT * FROM Student;
@@ -159,11 +172,39 @@ nlu:
     - SELECT department FROM Course
     - SELECT DISTINCT module_code FROM Student_Module
     - SELECT f_name FROM Lecturer WHERE number_modules = 2
+    - SELECT number_modules FROM Lecturer
+    - SELECT name FROM Course
+    - SELECT s_name FROM Lecturer
+    - SELECT * FROM Lecturer_Module
+    - SELECT DISTINCT department FROM Course
+    - SELECT DISTINCT f_name FROM Lecturer
+    - SELECT DISTINCT s_name FROM Student
+    - SELECT name FROM Course WHERE department = 'Engineering'
+    - SELECT code FROM Module WHERE number_students < 100
+    - SELECT email FROM Student WHERE f_name = 'Carl'
+    - SELECT name FROM Module WHERE code = 'c2'
+    - SELECT name FROM Course WHERE code = 'EE' AND department = 'Engineering'
+    - SELECT f_name,s_name FROM Lecturer WHERE f_name = 'Hans' AND number_modules = 2
+    - SELECT f_name FROM Student WHERE course_code = 'EE' AND id = 6
+    - SELECT name FROM Module WHERE number_students <100 AND code='c6'
+    - SELECT s_name, email FROM Student WHERE f_name = 'Tom' AND course_code = 'MU'
+    - SELECT * FROM Course WHERE department = 'Engineering' AND ( code = 'EE' OR code = 'ME')
+    - SELECT f_name,s_name fROM Student WHERE course_code = 'CS' AND (f_name='Carl' OR  f_name='Bobble')
+    - SELECT * FROM Lecturer WHERE number_modules < 2 AND ( f_name = 'Derek' OR f_name = 'Tara')
+    - SELECT name FROM Course WHERE department = 'Computer' AND ( code = 'CM' OR code = 'CS')
+    - SELECT email FROM Student WHERE course_code = 'CS' AND (f_name = 'Carl' OR s_name = 'Ryan')
+    - SELCT * FROM Lecturer
+    - SELECT ALL FROM LEctuere
+    - SELECT * FROM course
+    - SELECT all from Course
+    - SELECT * fron Course
+    - SELECT * FROM Course
 - intent: quit_pls
   examples: |
     - quit
     - end pls
     - end session
+    - I want to quit
 - intent: chitchat/ask_SQL
   examples: |
     - What does SQL stand for?
@@ -234,8 +275,6 @@ nlu:
     - What is the syntax to select certain fields in a table based on column value?
     - how do I write a WHERE clause?
     - What is WHERE with SELECT syntax?
-    - How do I incorperate conditions in statements?
-    - What does a condition mean in SQL.
     - what is the syntax to filter records in a table?
     - What statement can filter records in a table
     - what is the syntax to filter values in columns
@@ -253,6 +292,10 @@ nlu:
     - i need help
     - I don't understand what to do.
     - How do i start this?
+    - How do I start this?
+    - I dont know how to do this
+    - What is the syntax for this?
+    - how do i start this
 - intent: general_help_reply_syntax
   examples: |
     - syntax.
@@ -285,8 +328,6 @@ nlu:
     - answer
     - solution
     - can i see the solution to this question?
-- intent: skip_question
-  examples: |
     - can I skip this question?
     - can I skip this exercise?
     - can we move to the next question?
@@ -295,6 +336,433 @@ nlu:
     - skip
     - new question please
     - I would like to try a new question
-#- intent: chitchat
+    - show me the answer
+- intent: repeat_question
+  examples: |
+    - What was the question again?
+    - I cant remember the question?
+    - Can you repeat the question?
+    - can you tell me the exercise again?
+    - I forgot what problem we are doing
+    - can you repeat the exercise.
+#- lookup: name
 #  examples: |
-#    - How do I exclude duplicate values?
+#    - Noah
+#    - Oliver
+#    - George
+#    - Arthur
+#    - Muhammad
+#    - Leo
+#    - Harry
+#    - Oscar
+#    - Archie
+#    - Henry
+#    - Olivia
+#    - Amelia
+#    - Isla
+#    - Ava
+#    - Ivy
+#    - Freya
+#    - Lily
+#    - Florence
+#    - Mia
+#    - Willow
+#    - Jack
+#    - Noah
+#    - James
+#    - Conor
+#    - Rían
+#    - Liam
+#    - Charlie
+#    - Daniel
+#    - Cillian
+#    - Tadhg
+#    - Michael
+#    - Oisín
+#    - Finn
+#    - Fionn
+#    - Thomas
+#    - Seán
+#    - Darragh
+#    - Luke
+#    - Patrick
+#    - Harry
+#    - Alex
+#    - Adam
+#    - Cian
+#    - Theo
+#    - Oliver
+#    - Dylan
+#    - Jamie
+#    - John
+#    - Leo
+#    - Oscar
+#    - Ollie
+#    - Ben
+#    - Tom
+#    - Bobby
+#    - Ryan
+#    - Tommy
+#    - Matthew
+#    - Max
+#    - Callum
+#    - Sam
+#    - Danny
+#    - Aaron
+#    - Alexander
+#    - Alfie
+#    - Jake
+#    - Mason
+#    - David
+#    - Joseph
+#    - Jacob
+#    - Ethan
+#    - Kai
+#    - Shay
+#    - Donnacha
+#    - Luca
+#    - Sonny
+#    - Senan
+#    - William
+#    - Evan
+#    - Archie
+#    - Freddie
+#    - Lucas
+#    - Leon
+#    - Nathan
+#    - Hugo
+#    - Joshua
+#    - Benjamin
+#    - Arthur
+#    - Louis
+#    - Billy
+#    - Jayden
+#    - Logan
+#    - Theodore
+#    - Aidan
+#    - Rory
+#    - Samuel
+#    - Teddy
+#    - Frankie
+#    - Daithí
+#    - Páidí
+#    - Jaxon
+#    - Odhran
+#    - Zach
+#    - Eoin
+#    - George
+#    - Brody
+#    - Robert
+#    - Isaac
+#    - Shane
+#    - Cathal
+#    - Ted
+#    - Hunter
+#    - Sebastian
+#    - Tadgh
+#    - Tiernan
+#    - Andrew
+#    - Martin
+#    - Edward
+#    - Ronan
+#    - Arlo
+#    - Eli
+#    - Fiadh
+#    - Grace
+#    - Emily
+#    - Sophie
+#    - Éabha
+#    - Lucy
+#    - Mia
+#    - Ava
+#    - Lily
+#    - Ella
+#    - Amelia
+#    - Chloe
+#    - Hannah
+#    - Sophia
+#    - Emma
+#    - Ellie
+#    - Isla
+#    - Molly
+#    - Olivia
+#    - Sadie
+#    - Anna
+#    - Freya
+#    - Evie
+#    - Saoirse
+#    - Caoimhe
+#    - Ruby
+#    - Robyn
+#    - Kate
+#    - Willow
+#    - Sofia
+#    - Holly
+#    - Aoife
+#    - Cara
+#    - Róisín
+#    - Katie
+#    - Sadhbh
+#    - Leah
+#    - Millie
+#    - Isabelle
+#    - Alice
+#    - Clodagh
+#    - Zoe
+#    - Sarah
+#    - Erin
+#    - Ada
+#    - Annie
+#    - Bonnie
+#    - Charlotte
+#    - Layla
+#    - Rosie
+#    - Maya
+#    - Croía
+#    - Faye
+#    - Zara
+#    - Isabella
+#    - Daisy
+#    - Maisie
+#    - Méabh
+#    - Sienna
+#    - Ailbhe
+#    - Harper
+#    - Eve
+#    - Eva
+#    - Ivy
+#    - Ciara
+#    - Jessica
+#    - Clara
+#    - Mila
+#    - Fíadh
+#    - Rose
+#    - Aoibhín
+#    - Niamh
+#    - Bella
+#    - Julia
+#    - Maria
+#    - Hazel
+#    - Emilia
+#    - Indie
+#    - Laura
+#    - Amber
+#    - Lauren
+#    - Aria
+#    - Ayla
+#    - Amy
+#    - Lara
+#    - Paige
+#    - Elsie
+#    - Heidi
+#    - Elizabeth
+#    - Pippa
+#    - Evelyn
+#    - Mollie
+#    - Abigail
+#    - Nina
+#    - Áine
+#    - Laoise
+#    - Luna
+#    - Alannah
+#    - Lottie
+#    - John
+#    - Michael
+#    - Patrick
+#    - David
+#    - James
+#    - Thomas
+#    - Paul
+#    - Mark
+#    - Brian
+#    - William
+#    - Martin
+#    - Declan
+#    - Alan
+#    - Stephen
+#    - Anthony
+#    - Gerard
+#    - Peter
+#    - Kevin
+#    - Joseph
+#    - Robert
+#    - Brendan
+#    - Noel
+#    - Edward
+#    - Derek
+#    - Richard
+#    - Andrew
+#    - Sean
+#    - Daniel
+#    - Francis
+#    - Denis
+#    - Kenneth
+#    - Kieran
+#    - Philip
+#    - Christopher
+#    - Niall
+#    - Darren
+#    - Jason
+#    - Timothy
+#    - Raymond
+#    - Keith
+#    - Dermot
+#    - Conor
+#    - Colm
+#    - Aidan
+#    - Barry
+#    - Damien
+#    - Colin
+#    - Shane
+#    - Ronan
+#    - Ciaran
+#    - Bernard
+#    - Adrian
+#    - Ian
+#    - Donal
+#    - Gary
+#    - Seamus
+#    - Cornelius
+#    - Vincent
+#    - Fergal
+#    - Damian
+#    - Liam
+#    - Trevor
+#    - Desmond
+#    - Laurence
+#    - Eoin
+#    - Enda
+#    - Jonathan
+#    - Karl
+#    - Eamonn
+#    - Jeremiah
+#    - Eugene
+#    - Terence
+#    - Graham
+#    - George
+#    - Nigel
+#    - Maurice
+#    - Charles
+#    - Matthew
+#    - Hugh
+#    - Cathal
+#    - Rory
+#    - Eamon
+#    - Fergus
+#    - Garrett
+#    - Nicholas
+#    - Gavin
+#    - Cormac
+#    - Padraig
+#    - Simon
+#    - Owen
+#    - Garry
+#    - Gregory
+#    - Gerald
+#    - Fintan
+#    - Finbarr
+#    - Diarmuid
+#    - Justin
+#    - Neil
+#    - Oliver
+#    - Wayne
+#    - Mary
+#    - Catherine
+#    - Margaret
+#    - Fiona
+#    - Sinead
+#    - Ann
+#    - Elizabeth
+#    - Sharon
+#    - Anne
+#    - Deirdre
+#    - Caroline
+#    - Patricia
+#    - Michelle
+#    - Sandra
+#    - Siobhan
+#    - Karen
+#    - Linda
+#    - Elaine
+#    - Geraldine
+#    - Bridget
+#    - Martina
+#    - Helen
+#    - Susan
+#    - Bernadette
+#    - Maria
+#    - Marie
+#    - Lorraine
+#    - Lisa
+#    - Jennifer
+#    - Yvonne
+#    - Eileen
+#    - Niamh
+#    - Denise
+#    - Sarah
+#    - Carol
+#    - Gillian
+#    - Carmel
+#    - Louise
+#    - Orla
+#    - Angela
+#    - Jacqueline
+#    - Teresa
+#    - Rachel
+#    - Suzanne
+#    - Kathleen
+#    - Deborah
+#    - Nora
+#    - Audrey
+#    - Barbara
+#    - Valerie
+#    - Paula
+#    - Anna
+#    - Josephine
+#    - Tracy
+#    - Brigid
+#    - Amanda
+#    - Claire
+#    - Aisling
+#    - Nicola
+#    - Joan
+#    - Christina
+#    - Sheila
+#    - Ciara
+#    - Shirley
+#    - Joanne
+#    - Pauline
+#    - Tara
+#    - Ruth
+#    - Colette
+#    - Ellen
+#    - Annette
+#    - Tracey
+#    - Edel
+#    - Grainne
+#    - Anita
+#    - Alison
+#    - Brenda
+#    - Jane
+#    - Helena
+#    - Frances
+#    - Noreen
+#    - Emer
+#    - Samantha
+#    - Jean
+#    - Clodagh
+#    - Laura
+#    - Clare
+#    - Julia
+#    - Veronica
+#    - Maeve
+#    - Andrea
+#    - Antoinette
+#    - Michele
+#    - Una
+#    - Pamela
+#    - Majella
+#    - Rose
+#    - Miriam
+#    - Katherine
+#    - Nuala
