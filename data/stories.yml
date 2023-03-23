@@ -1312,7 +1312,7 @@ stories:
 #    - n_correct_qs: 3
 #  - action: utter_wherewego
 #  - intent: quit_pls
-#  - action: action_quit
+
 - story: interactive_story_1
   steps:
   - intent: greet1
