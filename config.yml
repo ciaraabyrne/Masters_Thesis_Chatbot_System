@@ -11,6 +11,7 @@ pipeline:
 # # If you'd like to customize it, uncomment and adjust the pipeline.
 # # See https://rasa.com/docs/rasa/tuning-your-model for more information.
 
+#   # Spacy Pipeline Components
 #   - name: "SpacyNLP"
 #  # language model to load
 #     model: "en_core_web_md"
@@ -25,6 +26,7 @@ pipeline:
 #     max_ngram: 4
 #   - name: DIETClassifier
 #     epochs: 100
+#   - name: SpacyEntityExtractor
 #   - name: EntitySynonymMapper
 #   - name: ResponseSelector
 

@@ -2,89 +2,7 @@
 #### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
 
 stories:
-#- story: A basic story test
-#  steps:
-#  - user: |
-#      hello
-#    intent: greet1
-#  - action: utter_greet1
-#  - user: |
-#     Yes [6]{"entity": "id"}
-#    intent: greet
-#  - action: action_response
-#  - action: action_lastquestion
-#  - slot_was_set:
-#      - exercise: "SELECT DISTINCT column1, column2, ... FROM table_name;\r"
-#  - slot_was_set:
-#      - level: "3"
-#  - action: utter_lastquestion
-#  - action: utter_wherewego
-#  - user: |
-#      try a similar question.
-#    intent: similar
-#  - action: action_newquestion
-#  - slot_was_set:
-#      - new_exercise: Select distinct (different) name values from the Student table.
-#  - slot_was_set:
-#      - exercise_id: q5
-#  - slot_was_set:
-#      - level: 3
-#  - action: utter_trythis
-#  - user: |
-#      SELECT DISTINCT name from Students
-#    intent: answered
-#  - action: action_checkanswer
-#  - slot_was_set:
-#      - reply: Incorrect
-#  - action: action_listen
-#  - user: |
-#      select DISTINCT name from Students
-#    intent: answered
-#  - action: action_checkanswer
-#  - slot_was_set:
-#      - reply: Incorrect
-#  - action: action_listen
-#  - user: |
-#      SELECT DISTINCT name FROM Students
-#    intent: answered
-#  - action: action_checkanswer
-#  - slot_was_set:
-#      - reply: Correct
-#  - action: utter_wherewego
-#  - action: action_listen
-#  - user: |
-#      can we move on?
-#    intent: move_on
-#  - action: action_newquestion
-#  - slot_was_set:
-#      - new_exercise: Return names of lecturers that teach the module code b7.
-#  - slot_was_set:
-#      - exercise_id: q7
-#  - slot_was_set:
-#      - level: 4
-#  - action: utter_trythis
-#  - action: action_listen
-#  - user: |
-#      SELECT code='b7' FROM Lecturer
-#    intent: answered
-#  - action: action_checkanswer
-#  - slot_was_set:
-#      - reply: Incorrect
-#  - action: action_listen
-#  - user: |
-#      SELECT name FROM Lecturer WHERE code= b7
-#    intent: answered
-#  - action: action_checkanswer
-#  - slot_was_set:
-#      - reply: Incorrect
-#  - action: action_listen
-#  - user: |
-#      SELECT name FROM Lecturer WHERE code='b7'
-#    intent: answered
-#  - action: action_checkanswer
-#  - slot_was_set:
-#      - reply: correct
-#  - action: utter_wherewego
+
 
 
 
@@ -533,3 +451,89 @@ stories:
       quit
     intent: quit_pls
   - action: action_quit
+
+
+# unused test stories
+#- story: A basic story test
+#  steps:
+#  - user: |
+#      hello
+#    intent: greet1
+#  - action: utter_greet1
+#  - user: |
+#     Yes [6]{"entity": "id"}
+#    intent: greet
+#  - action: action_response
+#  - action: action_lastquestion
+#  - slot_was_set:
+#      - exercise: "SELECT DISTINCT column1, column2, ... FROM table_name;\r"
+#  - slot_was_set:
+#      - level: "3"
+#  - action: utter_lastquestion
+#  - action: utter_wherewego
+#  - user: |
+#      try a similar question.
+#    intent: similar
+#  - action: action_newquestion
+#  - slot_was_set:
+#      - new_exercise: Select distinct (different) name values from the Student table.
+#  - slot_was_set:
+#      - exercise_id: q5
+#  - slot_was_set:
+#      - level: 3
+#  - action: utter_trythis
+#  - user: |
+#      SELECT DISTINCT name from Students
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: Incorrect
+#  - action: action_listen
+#  - user: |
+#      select DISTINCT name from Students
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: Incorrect
+#  - action: action_listen
+#  - user: |
+#      SELECT DISTINCT name FROM Students
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: Correct
+#  - action: utter_wherewego
+#  - action: action_listen
+#  - user: |
+#      can we move on?
+#    intent: move_on
+#  - action: action_newquestion
+#  - slot_was_set:
+#      - new_exercise: Return names of lecturers that teach the module code b7.
+#  - slot_was_set:
+#      - exercise_id: q7
+#  - slot_was_set:
+#      - level: 4
+#  - action: utter_trythis
+#  - action: action_listen
+#  - user: |
+#      SELECT code='b7' FROM Lecturer
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: Incorrect
+#  - action: action_listen
+#  - user: |
+#      SELECT name FROM Lecturer WHERE code= b7
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: Incorrect
+#  - action: action_listen
+#  - user: |
+#      SELECT name FROM Lecturer WHERE code='b7'
+#    intent: answered
+#  - action: action_checkanswer
+#  - slot_was_set:
+#      - reply: correct
+#  - action: utter_wherewego
